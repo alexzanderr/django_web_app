@@ -1,0 +1,38 @@
+<div>
+	<p class="text-color"> please create an account </p>
+</div>
+<div>
+	<!-- https://developer.mozilla.org/en-US/docs/Learn/Forms/HTML5_input_types -->
+	<form action="/todos/register" method="POST" type="submit">
+		<!-- <input type="" name="" text=""> -->
+		<div class="register-div">
+			<div>
+				<label for="fname">Username:</label>
+			</div>
+			<input class="" name="username" type="text" placeholder="username" id="username-input" autofocus required>
+		</div>
+		<div class="register-div">
+			<div>
+				<label for="fname">Email:</label>
+			</div>
+			<input class="" name="email" type="email" placeholder="email" id="email-input" required>
+		</div>
+		<div class="register-div">
+			<div>
+				<label for="fname">Password:</label>
+			</div>
+			<input class="" name="password" type="text" placeholder="password" id="password-input" required>
+		</div>
+		<div class="register-div">
+			<input name="remember" type="checkbox" id="remember-me">
+			<span class="remember-me-span">
+				remember me
+			</span>
+		</div>
+		<div class="register-div">
+			<!-- this has a binding on enter -->
+			<!-- when you press enter it makes POST request to server on action url -->
+			<input type="submit" value="Create New Account">
+		</div>
+	</form>
+</div>
