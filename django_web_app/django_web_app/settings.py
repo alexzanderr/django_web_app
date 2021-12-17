@@ -22,11 +22,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-from credentials import Credentials
+from .credentials import Credentials
 SECRET_KEY = Credentials.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = Credentials.DEBUG
 
 ALLOWED_HOSTS = []
 
@@ -42,6 +42,9 @@ INSTALLED_APPS = [
 
     # if this is not here, then you cant access static files
     'django.contrib.staticfiles',
+
+    # apps from this project
+    "todos"
 ]
 
 MIDDLEWARE = [
@@ -60,10 +63,14 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates')
+            os.path.join(BASE_DIR, 'templates'),
+            # the fix was this
+            # os.path.join(BASE_DIR, 'todos/templates'),
+            # but if the app is installed, you dont need this anymore
         ],
         # this means that django will
         # try to search for /templates inside every app that you created with django-admin startapp $appname
+        # for this to work you need your $appname in INSTALLED_APPS list
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,6 +81,13 @@ TEMPLATES = [
             ],
         },
     },
+    # {
+    #     'BACKEND': 'django.template.backends.jinja2.Jinja2',
+    #     'DIRS': [
+    #         os.path.join(BASE_DIR, 'templates')
+    #     ],
+    #     "APP_DIRS": True
+    # },
 ]
 
 WSGI_APPLICATION = 'django_web_app.wsgi.application'
@@ -128,11 +142,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
+    os.path.join(BASE_DIR, "static/logo"),
+    # '/var/www/static/',
 ]
 
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
-]
+
+# asta era problema pentru static
+# STATICFILES_FINDERS = [
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder'
+# ]

@@ -1,0 +1,101 @@
+
+
+/* https://www.w3schools.com/html/html_links_colors.asp */
+
+
+
+@font-face {
+    font-family: "production-meslo-lg-s-for-powerline";
+    src: url("../fonts/meslo-lg-s-for-powerline.ttf");
+}
+
+@font-face {
+    font-family: "production-monacob2";
+    src: url("../fonts/monacob2.otf");
+}
+
+@font-face {
+    font-family: "production-hack-regular-400";
+    src: url("../fonts/hack-regular-400.ttf");
+}
+
+:root {
+    --global-font: "production-hack-regular-400";
+    /*--global-font: "monacob2";*/
+    --global-font-size: 17px;
+    --global-font-color: darkkhaki;
+	/* https://www.google.com/url?sa=i&url=https%3A%2F%2Fgithub.com%2Fjoshdick%2Fonedark.vim&psig=AOvVaw19qBQSCawqO0qRmm99Aer3&ust=1639419569861000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCKD45vrv3vQCFQAAAAAdAAAAABAI */
+	--one-dark-red: #e06575;
+	--one-dark-background: #282c34;
+	--one-dark-yellow: #e5c07b;
+	--one-dark-green:  #98c379;
+	--one-dark-blue: #61AFEF;
+}
+
+*:link {
+	text-decoration: none;
+}
+
+
+
+.todo-complete:link {
+	color: var(--one-dark-green);
+}
+
+.todo-complete:hover {
+	background-color: var(--one-dark-green);
+	color: var(--one-dark-background);
+}
+
+.todo-complete:visited {
+	color: var(--one-dark-green);
+}
+
+.todo-delete {
+	float: right;
+}
+
+.todo-delete:link {
+	color: var(--one-dark-red);
+}
+
+.todo-delete:hover {
+	color: var(--one-dark-background);
+	background-color: var(--one-dark-red);
+}
+
+/*.todo-delete:visited {
+	color: inherit;
+}*/
+
+.todo-div {
+	width: 500px;
+}
+
+.todo-completed {
+	text-decoration: line-through black;
+	text-decoration-thickness: 2px;
+	/*color: var(--one-dark-yellow);*/
+}
+
+
+li {
+	/* get rid of list item dots */
+	list-style: none;
+}
+
+
+.todo-text-box {
+	font-family: var(--global-font);
+	font-size: var(--global-font-size);
+	width: 500px;
+	background-color: darkkhaki;
+	color: var(--one-dark-background);
+	border-color: var(--one-dark-background);
+}
+
+
+.register-div {
+	padding: 5px;
+	margin: 5px;
+}

@@ -1,0 +1,51 @@
+
+
+@font-face {
+    font-family: "production-meslo-lg-s-for-powerline";
+    src: url("../fonts/meslo-lg-s-for-powerline.ttf");
+}
+
+@font-face {
+    font-family: "production-monacob2";
+    src: url("../fonts/monacob2.otf");
+}
+
+@font-face {
+    font-family: "production-hack-regular-400";
+    src: url("../fonts/hack-regular-400.ttf");
+}
+
+:root {
+    /*--global-font: "meslo lg s for powerline";*/
+    /*--global-font: "monaco";*/
+    /*--global-font: "production-meslo-lg-s-for-powerline";*/
+    /*--global-font: "production-monacob2";*/
+    --global-font: "production-hack-regular-400";
+    /*--global-font: "monacob2";*/
+    --global-font-size: 17px;
+    --global-font-color: darkkhaki;
+}
+
+
+.font-awesome-icon {
+    filter: invert(75%) sepia(11%) saturate(1272%) hue-rotate(18deg) brightness(94%) contrast(90%);
+}
+
+body {
+	/*background-color: #2b2a2a;*/
+    background-color: #282c34;
+/*	align-content: center;
+	align-items: center;*/
+    color: var(--global-font-color);
+	font-family: var(--global-font);
+	font-size: var(--global-font-size);
+}
+
+.text-color {
+	color: var(--global-font-color);
+}
+
+.text-bold {
+	color: var(--global-font-color);
+	font-style: italic;
+}
