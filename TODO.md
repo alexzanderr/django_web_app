@@ -1,0 +1,57 @@
+
+
+# TODOS
+
+- [x] add base index html
+- [ ] add static folder for every app and tell django where its located
+- [x] extend a template that is not in the current app, but it is in root/templates
+- [x] extend a template that is in the same dir as current template
+- [ ] what if the templates do have the same name in different templates folder, what do you do?
+- [ ] pytest https://djangostars.com/blog/django-pytest-testing/
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
