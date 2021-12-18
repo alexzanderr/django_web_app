@@ -24,3 +24,7 @@ references:
 - https://stackoverflow.com/questions/41926032/django-load-static-files-from-another-app
 - https://www.digitalocean.com/community/tutorials/working-with-django-templates-static-files
 - https://stackoverflow.com/questions/1208067/wheres-my-json-data-in-my-incoming-django-request/3244765#3244765
+- https://www.enterprisedb.com/postgres-tutorials/how-use-postgresql-django
+- https://github.com/jazzband/django-redis
+- https://docs.djangoproject.com/en/4.0/topics/db/multi-db/
+- https://dev.to/minhvuong1/how-to-set-up-multiple-databases-on-django-1c76

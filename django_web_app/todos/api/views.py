@@ -107,3 +107,117 @@ def todos_api_mongo_delete(request: HttpRequest):
         del requested_todo["_id"]  # type: ignore
 
         return JsonResponse(requested_todo, status=200)  # type: ignore
+
+
+# TODO fix the below items
+
+def generate_random_register_token():
+    return "".join([choice(ascii_letters + digits) for _ in range(30)])
+
+
+def get_new_register_token():
+    """
+    Function: get_new_token()
+    Summary: gets new token based on whats in the db
+    Returns: new token that is not the database
+    """
+    brand_new_token = generate_random_register_token()
+
+    while register_tokens_collection.find_one({"token": brand_new_token}):
+        brand_new_token = generate_random_register_token()
+
+    return brand_new_token
+
+
+@todos.route("/register", methods=["GET", "POST"])
+def todos_register():
+    method = request.method
+    if method == "POST":
+        # then create a new user in database and encrypt
+        # the password
+        # then redirect to /todos based on the content that the user has in todos database
+        # return render_template ?
+        # get data and token from request data body
+        json_from_request: dict = request.get_json()  # type: ignore
+        username = json_from_request["username"]
+        email = json_from_request["email"]
+        password = json_from_request["password"]
+        password_check = json_from_request["password_check"]
+        remember_me = json_from_request["remember_me"]
+        register_token = json_from_request["register_token"]
+
+        if not register_tokens_collection.find_one({"token": register_token}):
+            return {
+                "message": "cannot register, register token is not database"
+            }, 403
+
+        users_collection.insert_one({
+            "username": username,
+            "password": hash_password(password),  # hashed
+            "email": email,
+            "creation_timestamp": datetime.timestamp(datetime.now()),
+            "creation_datetime": datetime.now().strftime("%d.%m.%Y-%H:%M:%S")
+        })
+
+        # you can redirect from POST request sorry
+        # and you can render HTML from here because you
+        # are making the request from ajax, not from firefox
+        return {"message": "success", "redirectTo": "/todos"}, 200
+        # or you can redirect to login page
+        # or you can automatically login the user after registration
+
+    else:
+        # GET
+        # if the user is already authenticated
+        # then redirect to /todos page
+        # else
+        # return below
+        return render_template("todos/register.html")
+
+
+@todos_api.post("/register/validation")
+def todos_api_register():
+    """
+            Function: todos_api_register
+            Returns: json with validated input
+    """
+    json_from_request: dict = request.get_json()  # type: ignore
+    username = json_from_request["username"]
+    email = json_from_request["email"]
+    password = json_from_request["password"]
+    password_check = json_from_request["password_check"]
+    remember_me = json_from_request["remember_me"]
+
+    # some examples
+    results = {
+        "username": validate_username(username),
+        "password": validate_password(password),
+        "email": validate_email(email),
+        "password_check": validate_password_check(password, password_check),
+        "register_token": None
+    }
+
+    all_passed = True
+    for k, v in results.items():
+        if k != "register_token" and not v["passed"]:
+            all_passed = False
+            break
+
+    if all_passed:
+        new_token = get_new_register_token()
+        results["register_token"] = new_token
+        register_tokens_collection.insert_one({
+            "token": new_token,
+            "expiration_timestamp": datetime.timestamp(datetime.now() + timedelta(minutes=2))
+        })
+
+    # TODO add check for username in database
+
+    return json_response(results, 200)
+    # return {
+    #   "username": username,
+    #   "email": email,
+    #   "password": password,
+    #   "password_check": password_check,
+    #   "remember_me": remember_me
+    # }, 200
