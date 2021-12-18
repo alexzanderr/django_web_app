@@ -20,3 +20,7 @@ references:
 - https://stackoverflow.com/questions/66185424/django-how-do-i-handle-urls-with-multiple-apps
 - https://stackoverflow.com/questions/50379634/django-cant-find-template-in-app
 - https://djangostars.com/blog/django-pytest-testing/
+- https://www.djangoproject.com/start/
+- https://stackoverflow.com/questions/41926032/django-load-static-files-from-another-app
+- https://www.digitalocean.com/community/tutorials/working-with-django-templates-static-files
+- https://stackoverflow.com/questions/1208067/wheres-my-json-data-in-my-incoming-django-request/3244765#3244765

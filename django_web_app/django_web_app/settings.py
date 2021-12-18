@@ -22,7 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-from .credentials import Credentials
+
+from . import Credentials
+
+# from ..credentials import Credentials
 SECRET_KEY = Credentials.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -144,13 +147,20 @@ STATIC_URL = '/static/'
 
 # STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
+    # without this it doesnt work
     os.path.join(BASE_DIR, "static/logo"),
-    # '/var/www/static/',
 ]
 
+mini_apps = [
+    "todos"
+]
+STATICFILES_DIRS.extend([
+    # maybe ? it works
+    os.path.join(BASE_DIR, f"{app}/static") for app in mini_apps
+])
 
 # asta era problema pentru static
 # STATICFILES_FINDERS = [

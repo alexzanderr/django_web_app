@@ -3,6 +3,9 @@
 import os
 import sys
 
+from rich.traceback import install
+install(show_locals=False)
+
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_web_app.settings')
