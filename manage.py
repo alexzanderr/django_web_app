@@ -8,6 +8,7 @@ install(show_locals=False)
 
 
 def main():
+    # print(sys.path)
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'application.settings')
     try:
         from django.core.management import execute_from_command_line

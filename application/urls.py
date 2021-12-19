@@ -29,4 +29,6 @@ urlpatterns = [
     # how about /api, aici folosim django rest API
     path("api/", include("api.urls")),
 
+    # /postgres interface
+    path("postgres/", include("postgresql_app.urls"))
 ]

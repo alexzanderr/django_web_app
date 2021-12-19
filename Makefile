@@ -14,3 +14,6 @@ run:
 test:
 	pytest -vv -x -rP -n 2
 
+lint:
+	pylint --load-plugins pylint_django -j 4 `ls -R|grep .py$|xargs`
+

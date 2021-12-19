@@ -23,9 +23,9 @@ def test_todos_api_index_view(client: DjangoClient):
 
 def test_todos_api_register_validation_view_class(client: DjangoClient):
     # not valid because is in the database
-    username = "alexzander"
+    username = "miguel5000"
     # valid
-    email = "just.python.main.test@gmail.com"
+    email = "just.an.email.test@gmail.com"
     password="123!@#asdASDdfognsofnjgdjofbgjodbfg"
     password_check="123!@#asdASDdfognsofnjgdjofbgjodbfg"
     remme = True
@@ -48,9 +48,9 @@ def test_todos_api_register_validation_view_class(client: DjangoClient):
 
 
     # not valid because is in the database
-    username = "alexzander5000"
+    username = "miguel5000"
     # valid
-    email = "just.python.main.test@gmail.com"
+    email = "just.an.email.test@gmail.com"
     password="123!@#asdASDdfognsofnjgdjofbgjodbfg"
     password_check="123!@#asdASDdfognsofnjgdjofbgjodbfg"
     remme = True

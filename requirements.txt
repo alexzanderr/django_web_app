@@ -8,6 +8,9 @@ Django==3.0.1
 django-filter==21.1
 djangorestframework==3.13.1
 execnet==1.9.0
+gevent==21.12.0
+greenlet==1.1.2
+gunicorn==20.1.0
 importlib-metadata==4.8.3
 iniconfig==1.1.1
 jedi==0.18.1
@@ -16,7 +19,7 @@ packaging==21.3
 parso==0.8.3
 pluggy==1.0.0
 prompt-toolkit==3.0.24
-psycopg2==2.9.2
+psycopg2==2.8.6
 ptpython==3.0.20
 py==1.11.0
 Pygments==2.10.0
@@ -33,3 +36,5 @@ toml==0.10.2
 typing_extensions==4.0.1
 wcwidth==0.2.5
 zipp==3.6.0
+zope.event==4.5.0
+zope.interface==5.4.0

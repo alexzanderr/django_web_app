@@ -33,10 +33,25 @@ references:
 - https://docs.djangoproject.com/en/4.0/topics/testing/tools/
 - https://stackoverflow.com/questions/1579846/django-returning-http-301
 - https://stackoverflow.com/questions/31335736/cannot-apply-djangomodelpermissions-on-a-view-that-does-not-have-queryset-prot
+- https://stackoverflow.com/questions/68024060/assertionerror-database-connection-isnt-set-to-utc
+- https://stackoverflow.com/questions/5500472/how-do-i-match-the-question-mark-character-in-a-django-url
+- https://github.com/stephenmcd/django-socketio
+-
+-
+-
+- https://code.djangoproject.com/wiki/DjangoAndPyPy
 -
 -
 -
 -
+-
+-
+-
+-
+-
+-
+-
+- 
 
 
 

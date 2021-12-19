@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-from . import Credentials
+from credentials import Credentials
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -30,7 +30,7 @@ SECRET_KEY = Credentials.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = Credentials.DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = Credentials.ALLOWED_HOSTS
 
 
 # Application definition
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     # apps from this project
     "todos",
     "api",  # REST API
+    "postgresql_app",
 
     # pip install djangorestframework
     "rest_framework"
@@ -103,11 +104,26 @@ WSGI_APPLICATION = 'application.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # "default": {},
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # },
+    # Credentials.PostgreSQL.DATABASE_DJANGO: {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": Credentials.PostgreSQL.DATABASE_DJANGO,
+        "USER": Credentials.PostgreSQL.USERNAME,
+        "PASSWORD": Credentials.PostgreSQL.PASSWORD,
+        "HOST": Credentials.PostgreSQL.HOST,
+        "PORT": Credentials.PostgreSQL.PORT
     }
 }
+
+# DATABASE_ROUTERS = [
+#     'routers.database_routers.AuthRouter',
+#     'routers.database_routers.DjangoWebAppPostgresqlDB',
+# ]
 
 
 # Password validation
@@ -187,3 +203,5 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAdminUser'
     ]
 }
+
+
