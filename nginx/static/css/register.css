@@ -1,0 +1,147 @@
+
+
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,500&display=swap');
+
+* {
+	box-sizing: border-box;
+}
+
+
+@font-face {
+    font-family: "production-meslo-lg-s-for-powerline";
+    src: url("../fonts/meslo-lg-s-for-powerline.ttf");
+}
+
+@font-face {
+    font-family: "production-monacob2";
+    src: url("../fonts/monacob2.otf");
+}
+
+@font-face {
+    font-family: "production-hack-regular-400";
+    src: url("../fonts/hack-regular-400.ttf");
+}
+
+:root {
+    --global-font: "production-hack-regular-400";
+	--one-dark-red: #e06575;
+	--dark-grey: #282c34;
+	--one-dark-yellow: #e5c07b;
+	--one-dark-green:  #98c379;
+	--one-dark-blue: #61AFEF;
+	--one-dark-grey:  #ABB;
+}
+
+body {
+	background-color: #2b2a2a;
+	font-family: var(--global-font);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	margin: 0;
+}
+
+.password-hint {
+	font-size: 10px;
+	float: right;
+	margin: 5px;
+}
+.container {
+	background-color: var(--one-dark-yellow);
+	border-radius: 5px;
+	box-shadow: 0 2px 5px var(--dark-grey);
+	overflow: hidden;
+	width: 400px;
+	max-width: 100%;
+}
+
+.header {
+	border-bottom: 4px solid var(--dark-grey);
+	background-color: var(--one-dark-yellow);
+	padding: 20px 40px;
+}
+
+.header h2 {
+	margin: 0;
+	color: var(--dark-grey);
+}
+
+.form {
+	padding: 30px 40px;
+}
+
+.form-control {
+	color: var(--dark-grey);
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	position: relative;
+}
+
+.form-control label {
+	color: var(--dark-grey);
+	display: inline-block;
+	margin-bottom: 5px;
+}
+
+.form-control input {
+	background-color: var(--dark-grey);
+	color: var(--one-dark-yellow);
+	border: 5px solid var(--one-dark-grey);
+	border-radius: 10px;
+	display: block;
+	font-family: inherit;
+	font-size: 14px;
+	padding: 10px;
+	width: 100%;
+}
+
+.form-control input:focus {
+	outline: 0;
+	border-color: var(--one-dark-blue);
+}
+
+.success input {
+	border-color: #2ecc71;
+}
+
+.error {
+	border-color: #e74c3c;
+}
+
+.form-control small {
+	color: #e74c3c;
+	/*position: absolute;*/
+	bottom: 0;
+	left: 0;
+	visibility: hidden;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.form-control.error small {
+	visibility: visible;
+}
+
+.form button {
+	background-color: var(--dark-grey);
+	border: 5px solid #2ecc71;
+	border-radius: 10px;
+	color: #2ecc71;
+	display: block;
+	font-family: inherit;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 10px;
+	margin-top: 20px;
+	width: 100%;
+}
+
+.form button:focus {
+	/* this disables the uggly default outline selector of firefox */
+	outline: 0;
+	border-color: var(--one-dark-blue);
+}
+
+/* TODO make the button red when data is invalid */

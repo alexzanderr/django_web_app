@@ -36,13 +36,13 @@ references:
 - https://stackoverflow.com/questions/68024060/assertionerror-database-connection-isnt-set-to-utc
 - https://stackoverflow.com/questions/5500472/how-do-i-match-the-question-mark-character-in-a-django-url
 - https://github.com/stephenmcd/django-socketio
--
--
+- https://stackoverflow.com/questions/20175243/django-gunicorn-not-load-static-files
+- https://docs.docker.com/samples/django/
 -
 - https://code.djangoproject.com/wiki/DjangoAndPyPy
--
--
--
+- https://semaphoreci.com/community/tutorials/dockerizing-a-python-django-web-application
+- https://stackoverflow.com/questions/20175243/django-gunicorn-not-load-static-files
+- https://stackoverflow.com/questions/1474374/nginx-doesnt-serve-static
 -
 -
 -

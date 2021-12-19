@@ -164,8 +164,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# STATIC_ROOT = os.path.join(BASE_DIR, "static/")
-
+# static root is for
+# python manage.py collectstatic
+# these files need to be server to nginx
+# gunicorn doesnt server static files
+# neither django, just the runserver
+STATIC_ROOT = os.path.join(BASE_DIR, "nginx/static")
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
