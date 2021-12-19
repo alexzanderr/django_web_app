@@ -8,7 +8,7 @@ install(show_locals=False)
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_web_app.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'application.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

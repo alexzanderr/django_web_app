@@ -22,7 +22,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # efectivelly include urls.py from todos folder
     path("", views.index, name="index"),
+
+    # /todos
     path("todos/", include("todos.urls")),
 
-    # how about /api
+    # how about /api, aici folosim django rest API
 ]

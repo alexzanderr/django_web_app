@@ -16,7 +16,7 @@
 - [ ] create tmux session for this project
 - [ ] add generate random password button in JS for register UI
 - [ ] add view password for register
-- [ ]
+- [ ] how to test django mini apps individually? because there is a tests file or folder inside every app
 - [ ]
 - [ ]
 - [ ]

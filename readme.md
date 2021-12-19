@@ -30,3 +30,10 @@ references:
 - https://dev.to/minhvuong1/how-to-set-up-multiple-databases-on-django-1c76
 - https://docs.djangoproject.com/en/4.0/topics/class-based-views/intro/
 - https://stackoverflow.com/a/22557095/12172291
+
+
+# create django project inside venv without creating extra directories
+```shell
+django-admin startproject $name .
+```
+note: `.` is very important

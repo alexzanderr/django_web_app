@@ -3,8 +3,6 @@
 # update all deps every time you run
 pip freeze > requirements.txt
 
-cd django_web_app
-
 # make migrations
 django_apps=(todos)
 for app in $django_apps; do

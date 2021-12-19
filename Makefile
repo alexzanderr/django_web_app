@@ -9,5 +9,5 @@
 project="django_web_app"
 
 run:
-	./$(project)/run.sh
+	./run.sh
 
