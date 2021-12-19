@@ -14,7 +14,7 @@ urlpatterns = [
     # /todos/extender
     path("extender", views.todos_extender, name='todos_extender'),
     # /todos/register
-    path("register", views.todos_register, name='todos_register'),
+    path("register", views.TodosRegister.as_view(), name='todos_register'),
     # /todos/json
     path("json", views.todos_json, name='todos_json'),
     path("agent", views.todos_agent, name='todos_agent'),

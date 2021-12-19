@@ -24,7 +24,9 @@
 </head>
 
 <body>
+	{% csrf_token %}
 	<script>
+		const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
 		$(document).ready(function() {
 			// this is not document on load
 			// keybindings
@@ -114,6 +116,7 @@
 
 			$.ajax({
 				type: "POST",
+				headers: {'X-CSRFToken': csrftoken},
 				contentType: "application/json",
 				data: JSON.stringify(payload),
 				dataType: "json",
@@ -149,6 +152,7 @@
 
 					$.ajax({
 						type: "POST",
+						headers: {'X-CSRFToken': csrftoken},
 						contentType: "application/json",
 						data: JSON.stringify(payload),
 						dataType: "json",

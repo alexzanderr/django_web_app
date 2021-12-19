@@ -12,7 +12,7 @@ urlpatterns = [
     path("", views.todos_api_index, name='todos_api_index'),
     path(
     	"register/validation",
-    	views.todos_api_register_validation,
+    	views.TodosAPIRegisterValidation.as_view(),
     	name='todos_api_register_validation'
     ),
     # /todos/api/mongo/add

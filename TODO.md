@@ -9,13 +9,13 @@
 - [ ] what if the templates do have the same name in different templates folder, what do you do?
 - [ ] pytest https://djangostars.com/blog/django-pytest-testing/
 - [x] add Jquery as local module, not from CDN, and also for socket io
-- [ ] add classes as views
+- [x] add classes as views
 - [ ] run server with interactive mode
 - [ ] add rich traceback to django runserver
 - [ ] try djongo, just like mongo alchemy - https://www.djongomapper.com/get-started/
 - [ ] create tmux session for this project
-- [ ]
-- [ ]
+- [ ] add generate random password button in JS for register UI
+- [ ] add view password for register
 - [ ]
 - [ ]
 - [ ]

@@ -1,6 +1,10 @@
 
 # django modules
 # from django.shortcuts import render
+from django.views import View
+import re
+from string import ascii_letters, digits
+from random import choice, randint
 from django.http import HttpResponse
 from django.http import HttpRequest
 # from django.http import request
@@ -47,7 +51,6 @@ def todos_api_mongo_add(request: HttpResponse):
     del todo["_id"]
 
     return JsonResponse(data=todo, status=200)
-
 
 
 # PATCH request
@@ -109,8 +112,6 @@ def todos_api_mongo_delete(request: HttpRequest):
         return JsonResponse(requested_todo, status=200)  # type: ignore
 
 
-# TODO fix the below items
-
 def generate_random_register_token():
     return "".join([choice(ascii_letters + digits) for _ in range(30)])
 
@@ -123,101 +124,168 @@ def get_new_register_token():
     """
     brand_new_token = generate_random_register_token()
 
-    while register_tokens_collection.find_one({"token": brand_new_token}):
+    while Database.register_tokens.find_one({"token": brand_new_token}):
         brand_new_token = generate_random_register_token()
 
     return brand_new_token
 
 
-@todos.route("/register", methods=["GET", "POST"])
-def todos_register():
-    method = request.method
-    if method == "POST":
-        # then create a new user in database and encrypt
-        # the password
-        # then redirect to /todos based on the content that the user has in todos database
-        # return render_template ?
-        # get data and token from request data body
-        json_from_request: dict = request.get_json()  # type: ignore
+# POST /register/validation
+
+class TodosAPIRegisterValidation(View):
+    username_regex = re.compile("[a-zA-Z0-9_]+")
+    password_regex = re.compile(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})")
+    email_regex = re.compile(r"[a-zA-Z0-9-.]+@[a-zA-Z0-9-.]+")
+
+    def validate_username(self, username: str):
+
+        if not isinstance(username, str):
+            return {
+                "passed": False,
+                "error_message": "username is not a string"
+            }
+
+        len_username = len(username)
+        if not (5 < len_username < 21):
+            return {
+                "passed": False,
+                "error_message": "username must be between 6 and 20 characters"
+            }
+
+        if not self.username_regex.fullmatch(username):
+            return {
+                "passed": False,
+                "error_message": "username must contain only alpha numeric values and underscore"
+            }
+
+        # deci testele au mers pana acum pentru
+        # ca era mongo db involved aici
+        if Database.users.find_one({"username": username}):
+            return {
+                "passed": False,
+                "error_message": "username already exists"
+            }
+
+        return {
+            "passed": True,
+            "error_message": None
+        }
+
+
+    def validate_password(self, password: str):
+
+        if not isinstance(password, str):
+            return {
+                "passed": False,
+                "error_message": "password is not a string"
+            }
+
+        len_password = len(password)
+        if not (9 < len_password < 31):
+            return {
+                "passed": False,
+                "error_message": "password must be between 10 and 30 characters"
+            }
+
+        if not self.password_regex.match(password):
+            return {
+                "passed": False,
+                "error_message": "password must contain alpha, digits, punctuation and uppercase"
+            }
+
+        return {
+            "passed": True,
+            "error_message": None
+    }
+
+
+
+    def validate_email(self, email: str):
+        if not isinstance(email, str):
+            return {
+                "passed": False,
+                "error_message": "password is not a string"
+            }
+
+        if "@" not in email:
+            return {
+                "passed": False,
+                "error_message": "email doesnt contain '@'"
+            }
+
+        first, second = email.split("@")
+        if not (5 <= len(first) <= 50):
+            return {
+                "passed": False,
+                "error_message": "username from email must be between 5 and 50"
+            }
+
+        if not (5 <= len(second) <= 15):
+            return {
+                "passed": False,
+                "error_message": "domain name from email must be between 5 and 15"
+            }
+
+        if not self.email_regex.fullmatch(email):
+            return {
+                "passed": False,
+                "error_message": "regex resulted that email is invalid"
+            }
+
+        return {
+            "passed": True,
+            "error_message": None
+        }
+
+    def validate_password_check(self, password: str, password_check: str):
+        if password_check != password:
+            return {
+                "passed": False,
+                "error_message": "password doesnt match password check"
+            }
+
+        return {
+            "passed": True,
+            "error_message": None
+        }
+
+
+
+    # POST /register/validation
+    def post(self, request: HttpRequest):
+        """
+                Function: todos_api_register
+                Returns: json with validated input
+        """
+        json_from_request: dict = json.loads(request.body)  # type: ignore
         username = json_from_request["username"]
         email = json_from_request["email"]
         password = json_from_request["password"]
         password_check = json_from_request["password_check"]
         remember_me = json_from_request["remember_me"]
-        register_token = json_from_request["register_token"]
 
-        if not register_tokens_collection.find_one({"token": register_token}):
-            return {
-                "message": "cannot register, register token is not database"
-            }, 403
+        # some examples
+        results = {
+            "username": self.validate_username(username),
+            "password": self.validate_password(password),
+            "email": self.validate_email(email),
 
-        users_collection.insert_one({
-            "username": username,
-            "password": hash_password(password),  # hashed
-            "email": email,
-            "creation_timestamp": datetime.timestamp(datetime.now()),
-            "creation_datetime": datetime.now().strftime("%d.%m.%Y-%H:%M:%S")
-        })
+            "password_check": self.validate_password_check(password, password_check),
+            "register_token": None
+        }
 
-        # you can redirect from POST request sorry
-        # and you can render HTML from here because you
-        # are making the request from ajax, not from firefox
-        return {"message": "success", "redirectTo": "/todos"}, 200
-        # or you can redirect to login page
-        # or you can automatically login the user after registration
+        all_passed = True
+        for k, v in results.items():
+            if k != "register_token" and not v["passed"]:
+                all_passed = False
+                break
 
-    else:
-        # GET
-        # if the user is already authenticated
-        # then redirect to /todos page
-        # else
-        # return below
-        return render_template("todos/register.html")
+        if all_passed:
+            new_token = get_new_register_token()
+            results["register_token"] = new_token
+            Database.register_tokens.insert_one({
+                "token": new_token,
+                "expiration_timestamp": datetime.timestamp(datetime.now() + timedelta(minutes=2))
+            })
 
-
-@todos_api.post("/register/validation")
-def todos_api_register():
-    """
-            Function: todos_api_register
-            Returns: json with validated input
-    """
-    json_from_request: dict = request.get_json()  # type: ignore
-    username = json_from_request["username"]
-    email = json_from_request["email"]
-    password = json_from_request["password"]
-    password_check = json_from_request["password_check"]
-    remember_me = json_from_request["remember_me"]
-
-    # some examples
-    results = {
-        "username": validate_username(username),
-        "password": validate_password(password),
-        "email": validate_email(email),
-        "password_check": validate_password_check(password, password_check),
-        "register_token": None
-    }
-
-    all_passed = True
-    for k, v in results.items():
-        if k != "register_token" and not v["passed"]:
-            all_passed = False
-            break
-
-    if all_passed:
-        new_token = get_new_register_token()
-        results["register_token"] = new_token
-        register_tokens_collection.insert_one({
-            "token": new_token,
-            "expiration_timestamp": datetime.timestamp(datetime.now() + timedelta(minutes=2))
-        })
-
-    # TODO add check for username in database
-
-    return json_response(results, 200)
-    # return {
-    #   "username": username,
-    #   "email": email,
-    #   "password": password,
-    #   "password_check": password_check,
-    #   "remember_me": remember_me
-    # }, 200
+        return JsonResponse(results, status=200)
