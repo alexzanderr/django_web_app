@@ -10,8 +10,6 @@ from django.views.decorators.http import require_http_methods
 # python
 from datetime import datetime
 
-import sys
-sys.path.append("..")
 from mongo_client import Database
 
 
@@ -20,7 +18,7 @@ from mongo_client import Database
 def todos_index(request):
     todo_list = []
     for todo in Database.todos.find():
-        todo["oid"] = todo["_id"]
+        todo["oid"] = str(todo["_id"])
         del todo["_id"]
         todo_list.append(todo)
 
@@ -40,7 +38,8 @@ def todos_mongo_test(request):
     return JsonResponse(
         data=Database.todos.find_one({
             "_id": "61ba5667de8183a2824bfb9d"}),
-        safe=False
+        safe=False,
+        status=200
     )
 
 def todos_testing(request):
@@ -58,7 +57,7 @@ def todos_extender(request):
 def todos_json(request: HttpRequest):
     return JsonResponse({
         "message": "hello andrew"
-    })
+    }, status=200)
 
 
 

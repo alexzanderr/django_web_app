@@ -27,4 +27,6 @@ urlpatterns = [
     path("todos/", include("todos.urls")),
 
     # how about /api, aici folosim django rest API
+    path("api/", include("api.urls")),
+
 ]

@@ -31,11 +31,6 @@ def todos_api_index(request: HttpRequest):
 
 
 @require_http_methods(["POST"])
-def todos_api_register_validation(request):
-    return HttpResponse("its working from /todos/api/register/validation")
-
-
-@require_http_methods(["POST"])
 def todos_api_mongo_add(request: HttpResponse):
     request_body = json.loads(request.body)  # type: ignore
     todo = {
@@ -130,8 +125,8 @@ def get_new_register_token():
     return brand_new_token
 
 
-# POST /register/validation
 
+# POST /todos/api/register/validation
 class TodosAPIRegisterValidation(View):
     username_regex = re.compile("[a-zA-Z0-9_]+")
     password_regex = re.compile(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})")
@@ -181,10 +176,10 @@ class TodosAPIRegisterValidation(View):
             }
 
         len_password = len(password)
-        if not (9 < len_password < 31):
+        if not (9 < len_password < 41):
             return {
                 "passed": False,
-                "error_message": "password must be between 10 and 30 characters"
+                "error_message": "password must be between 10 and 40 characters"
             }
 
         if not self.password_regex.match(password):
@@ -251,41 +246,67 @@ class TodosAPIRegisterValidation(View):
 
 
 
-    # POST /register/validation
+    # POST /todos/api/register/validation
     def post(self, request: HttpRequest):
         """
                 Function: todos_api_register
                 Returns: json with validated input
         """
-        json_from_request: dict = json.loads(request.body)  # type: ignore
-        username = json_from_request["username"]
-        email = json_from_request["email"]
-        password = json_from_request["password"]
-        password_check = json_from_request["password_check"]
-        remember_me = json_from_request["remember_me"]
+        # print(request.body)
+        # print("username", request.POST.get("username"))
 
-        # some examples
-        results = {
-            "username": self.validate_username(username),
-            "password": self.validate_password(password),
-            "email": self.validate_email(email),
+        try:
+            if request.is_ajax():
+                print("request is made from ajax (client) jquery")
+                # here request is made from ajax with data == JSON.stringify(_json)
+                json_from_request: dict = json.loads(request.body)  # type: ignore
+                username = json_from_request["username"]
+                email = json_from_request["email"]
+                password = json_from_request["password"]
+                password_check = json_from_request["password_check"]
+                remember_me = json_from_request["remember_me"]
 
-            "password_check": self.validate_password_check(password, password_check),
-            "register_token": None
-        }
+            else:
+                print("request is made pytest-django-client")
+                username = request.POST.get("username")
+                email = request.POST.get("email")
+                password = request.POST.get("password")
+                password_check = request.POST.get("password_check")
+                remember_me = request.POST.get("remember_me")
 
-        all_passed = True
-        for k, v in results.items():
-            if k != "register_token" and not v["passed"]:
-                all_passed = False
-                break
+        except json.decoder.JSONDecodeError:
+            # here request is made from pytest-django with post(url, data=_json)
+            username = request.POST.get("username")
+            email = request.POST.get("email")
+            password = request.POST.get("password")
+            password_check = request.POST.get("password_check")
+            remember_me = request.POST.get("remember_me")
 
-        if all_passed:
-            new_token = get_new_register_token()
-            results["register_token"] = new_token
-            Database.register_tokens.insert_one({
-                "token": new_token,
-                "expiration_timestamp": datetime.timestamp(datetime.now() + timedelta(minutes=2))
-            })
+        else:
 
-        return JsonResponse(results, status=200)
+
+            # some examples
+            results = {
+                "username": self.validate_username(username),
+                "password": self.validate_password(password),
+                "email": self.validate_email(email),
+
+                "password_check": self.validate_password_check(password, password_check),
+                "register_token": None
+            }
+
+            all_passed = True
+            for k, v in results.items():
+                if k != "register_token" and not v["passed"]:
+                    all_passed = False
+                    break
+
+            if all_passed:
+                new_token = get_new_register_token()
+                results["register_token"] = new_token
+                Database.register_tokens.insert_one({
+                    "token": new_token,
+                    "expiration_timestamp": datetime.timestamp(datetime.now() + timedelta(minutes=2))
+                })
+
+            return JsonResponse(results, status=200)

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+from . import Credentials
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -22,8 +23,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-
-from . import Credentials
 
 # from ..credentials import Credentials
 SECRET_KEY = Credentials.SECRET_KEY
@@ -47,7 +46,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # apps from this project
-    "todos"
+    "todos",
+    "api",  # REST API
+
+    # pip install djangorestframework
+    "rest_framework"
 ]
 
 MIDDLEWARE = [
@@ -155,7 +158,8 @@ STATICFILES_DIRS = [
 ]
 
 mini_apps = [
-    "todos"
+    "todos",
+    "api"
 ]
 STATICFILES_DIRS.extend([
     # maybe ? it works
@@ -166,3 +170,20 @@ STATICFILES_DIRS.extend([
 # STATICFILES_FINDERS = [
 #     'django.contrib.staticfiles.finders.AppDirectoriesFinder'
 # ]
+
+# these dont work
+# this should handle extra slash at the end of url
+# APPEND_SLASH = True
+# PREPEND_WWW = False
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly' not working
+        "rest_framework.permissions.DjangoModelPermissions"
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser'
+    ]
+}

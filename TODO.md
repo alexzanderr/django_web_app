@@ -17,8 +17,8 @@
 - [ ] add generate random password button in JS for register UI
 - [ ] add view password for register
 - [ ] how to test django mini apps individually? because there is a tests file or folder inside every app
-- [ ]
-- [ ]
+- [ ] add pytest-factoryboy and faker for databases
+- [ ] test frontend with selenium (here we need a person to watch the page changes)
 - [ ]
 - [ ]
 - [ ]

@@ -30,6 +30,14 @@ references:
 - https://dev.to/minhvuong1/how-to-set-up-multiple-databases-on-django-1c76
 - https://docs.djangoproject.com/en/4.0/topics/class-based-views/intro/
 - https://stackoverflow.com/a/22557095/12172291
+- https://docs.djangoproject.com/en/4.0/topics/testing/tools/
+- https://stackoverflow.com/questions/1579846/django-returning-http-301
+- https://stackoverflow.com/questions/31335736/cannot-apply-djangomodelpermissions-on-a-view-that-does-not-have-queryset-prot
+-
+-
+-
+-
+
 
 
 # create django project inside venv without creating extra directories

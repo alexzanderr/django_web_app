@@ -9,5 +9,8 @@
 project="django_web_app"
 
 run:
-	./run.sh
+	./run-server.sh
+
+test:
+	pytest -vv -x -rP -n 2
 
