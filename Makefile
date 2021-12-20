@@ -17,3 +17,6 @@ test:
 lint:
 	pylint --load-plugins pylint_django -j 4 `ls -R|grep .py$|xargs`
 
+guni:
+	./gunicorn.sh
+

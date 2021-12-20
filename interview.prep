@@ -1,0 +1,47 @@
+
+quick description about this project:
+- python 3.6.15
+- django 3.0.1
+- git managed project and hosted here on github
+- virtual environment for better python version and depedency management
+- OOP inheritance
+- django templates
+- classes as views
+- it has an REST API created with django rest framework 3.13.1
+- mongo db (NoSQL database)
+- postgresql (SQL database)
+- django db models
+- pytest framework for testing
+- it was deployed with gunicorn behind nginx
+- docker container (not yet :( )
+- it has a register webpage for creating new account with server side validation (users are stored in mongo)
+- it has a todo app that uses mongo db
+- has template inhertitation ({% extends ... %})
+- uses Jquery + ajax
+- kubernetes? nah, its too big to implement in 2 days
+
+# password for demo
+4jvndu__asd!123@#qmgh49195AND
+
+# email for demo
+just.a.test.email@gmail.com
+
+
+# Questions from me!
+- ce OS ?
+- ce Version Control ?
+- ce Database ?
+- ce web server pentru deploy, gunicorn ?
+- ce web server pentru reverse proxy, nginx ?
+- ce IDE + ce language server?
+- ce tools ?
+- laptop de munca, se poate cu arch linux (manjaro 21 xfce) ?
+- remote ?
+- se poate sa instalez custom software ?
+- se poate sa folosesc my tools ? Sublime-text-4
+- se poate sa folosesc my OS ?
+- aveti VPN pentru laptop de munca ?
+- ce tools pentru communication (slack, teams, skype or what)?
+- de ce python 3.6 ?
+- de ce django 3.0.1, am inteles care vulnerabilties ?
+- aveti propriul framework care este wrapper pentru django ? asta pentru business modelul pe care il implementati

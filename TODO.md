@@ -19,7 +19,7 @@
 - [ ] how to test django mini apps individually? because there is a tests file or folder inside every app
 - [ ] add pytest-factoryboy and faker for databases
 - [ ] test frontend with selenium (here we need a person to watch the page changes)
-- [ ]
+- [ ] django how to list all routes automatically on a page (python manage.py shell -c 'from django.core.management import call_command; from django_extensions.management.commands.show_urls import Command; call_command(Command())')
 - [ ]
 - [ ]
 - [ ]

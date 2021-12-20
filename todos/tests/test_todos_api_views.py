@@ -40,9 +40,9 @@ def test_todos_api_register_validation_view_class(client: DjangoClient):
     assert resp.status_code == 200
     _json: dict = resp.json()
 
-    # because in our database the username already exists
-    assert _json["username"]["passed"] == False
-    assert _json["username"]["error_message"] == "username already exists"
+    # because in our database the username doesnt exists
+    assert _json["username"]["passed"] == True, _json["username"]["error_message"]
+    assert _json["username"]["error_message"] != "username already exists"
 
 
 

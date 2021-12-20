@@ -1,11 +1,35 @@
 
 
+# This is a Django project prepared as demo for interview
+
+quick description about this project:
+- python 3.6.15
+- django 3.0.1
+- git managed project and hosted here on github
+- virtual environment for better python version and depedency management
+- OOP inheritance
+- django templates
+- classes as views
+- it has an REST API created with django rest framework 3.13.1
+- mongo db (NoSQL database)
+- postgresql (SQL database)
+- django db models
+- pytest framework for testing
+- it was deployed with gunicorn behind nginx
+- docker container (not yet :( )
+- it has a register webpage for creating new account with server side validation (users are stored in mongo)
+- it has a todo app that uses mongo db
+- has template inhertitation ({% extends ... %})
+- uses Jquery + ajax
+- kubernetes? nah, its too big to implement in 2 days
+
+
 
 ```py
 python manage.py createsuperuser --email just.python.mail.test@gmail.com --username alexzander
 ```
 
-# Learn about some Django
+# Documentation for django
 references:
 - https://www.quora.com/How-do-you-organize-the-code-in-your-Django-project
 - https://www.quora.com/What-are-some-best-practices-for-Django-development
@@ -43,7 +67,7 @@ references:
 - https://semaphoreci.com/community/tutorials/dockerizing-a-python-django-web-application
 - https://stackoverflow.com/questions/20175243/django-gunicorn-not-load-static-files
 - https://stackoverflow.com/questions/1474374/nginx-doesnt-serve-static
--
+- https://stackoverflow.com/questions/1275486/django-how-can-i-see-a-list-of-urlpatterns
 -
 -
 -
@@ -60,3 +84,7 @@ references:
 django-admin startproject $name .
 ```
 note: `.` is very important
+
+
+# disclaimer
+ofcourse there are a lot of quick snippet for solvig problems that i could have pasted here, but i was too lazy for that because i had a deadline, so enjoy a short readme
