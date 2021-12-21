@@ -1,3 +1,7 @@
+"""
+	just a small docstring for this module
+	sublime text is great and its very fast
+"""
 
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -12,11 +16,12 @@ from .models import Club
 from views_enhanced import json_response
 
 
+
+
 def postgres_index(request) -> JsonResponse:
 	return json_response({
 		"message": "postgresql its working"
 	})
-
 
 
 
@@ -25,8 +30,9 @@ def postgres_add_club(request: HttpRequest):
 	name = request.GET.get("name", None)
 	address = request.GET.get("address", None)
 	if name and address:
-		new_club = Club(name=name, address=address)
-		new_club.save()
+		Club.objects.create(name=name, address=address)
+		# new_club = Club(name=name, address=address)
+		# new_club.save()
 
 		return json_response({
 			"message": "successfully added new club to database",
@@ -42,10 +48,14 @@ def postgres_add_club(request: HttpRequest):
 		"disclaimer": "this endpoint is experimental and for educational purpose only, DONT use this in production"
 	}, 403)
 
+# to remove
+
+# new
 
 @require_http_methods(["GET"])
 def postgres_list_club(request):
 	clubs = { "clubs": [] }
+
 	for club in Club.objects.all(): # type: ignore
 		clubs["clubs"].append({"id": club.id, "name": club.name, "address": club.address})
 	return json_response(clubs)
@@ -73,6 +83,8 @@ def postgres_delete_club(request, primary_key):
 	}})
 
 
+
+
 @require_http_methods(["GET"])
 def postgres_update_club(request, primary_key):
 	name = request.GET.get("name", None)
@@ -89,5 +101,8 @@ def postgres_update_club(request, primary_key):
 				"address": club.address,
 				"id": primary_key
 		}})
+
 	return json_response({"message": "you must provide some data"}, 403)
+
+
 

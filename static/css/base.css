@@ -24,6 +24,14 @@
     /*--global-font: "monacob2";*/
     --global-font-size: 17px;
     --global-font-color: darkkhaki;
+    --one-dark-red: #e06575;
+    --dark-grey: #282c34;
+    --one-dark-yellow: #e5c07b;
+    --one-dark-green:  #98c379;
+    --one-dark-blue: #61AFEF;
+    --one-dark-grey:  #ABB;
+    --one-dark-magenta:  #c674dd;
+}
 }
 
 
@@ -48,4 +56,18 @@ body {
 .text-bold {
 	color: var(--global-font-color);
 	font-style: italic;
+}
+
+a {
+    color: var(--one-dark-magenta);
+    text-decoration: none;
+}
+
+a:visited {
+    color: var(--one-dark-magenta);
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
 }

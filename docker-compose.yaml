@@ -1,0 +1,38 @@
+
+# version of docker compose file
+version: "3.8"
+
+services:
+  postgresql_db:
+    image: postgres
+    volumes:
+      # ./data/db is the folder in the container project
+      # and /var/lib/postgres/data is the location on my machine for postgres database
+      - "./data/postgresql_db:/var/lib/postgres/data"
+
+  mongo_db:
+    image: mongo
+    volumes:
+      - "./data/mongo_db:/var/lib/mongodb"
+
+  web:
+    # Dockerfile at current dir of this compose file
+    build: .
+    # localhost in docker container i will never access
+    # it must be 0.0.0.0 to run on all ips
+    command: python manage.py runserver 0.0.0.0:4444
+    volumes:
+      # root of django project on local machine is linked to the /django_web_app on container
+      - .:/django_web_app
+    ports:
+      - 4444:4444
+    environment:
+      - POSTGRES_NAME=django_web_app_postgresql_db
+      - POSTGRES_USER=alexzander-pgsql
+      - POSTGRES_PASSWORD=pl123pl123
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    depends_on:
+      - postgresql_db
+      - "mongo_db"
+    image: django_web_app
+    container_name: django_web_app_container

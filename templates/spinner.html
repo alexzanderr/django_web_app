@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> asdasd </title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        div#loader {
+            border: 8px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 8px solid #3498db;
+            border-bottom: 8px solid #3498db;
+            width: 20px;
+            height: 20px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        function loading() {
+            console.log("1")
+            console.log("2")
+            console.log("3")
+            $("#loader").show();
+            $("#content").hide();
+            console.log("done")
+        }
+    </script>
+    <div id="loader"></div>
+    <div id="content">
+        <h3>Type anything:</h3>
+        <p>
+        <form action="/form" method="POST">
+            <input type="text" name="anything" placeholder="Type anything here">
+            <input type="submit" name="anything_submit" value="Submit" onclick="loading();">
+        </form>
+        </p>
+    </div>
+</body>
+
+</html>

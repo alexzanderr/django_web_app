@@ -20,3 +20,10 @@ lint:
 guni:
 	./gunicorn.sh
 
+
+clean:
+	rm -rfv __pycache__
+	rm -rfv build
+	rm -rfv dist
+	rm -rfv $(SPEC_FILE)
+	rm -rfv .pytest_cache

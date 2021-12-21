@@ -10,8 +10,27 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-from credentials import Credentials
+# from credentials import Credentials
+from credentials import Configuration# use this for your config
+# from example_credentials import Configuration
+from pathlib import Path
+import json
 import os
+
+ProjectStateFile = Path("ProjectState.json")
+__state = json.loads(ProjectStateFile.read_text())["state"].split(",")[0].strip().lower()
+
+class Project__:
+    def __init__(self, __state: str) -> None:
+        if __state == "development":
+            self.State = Configuration.Development
+        elif __state == "staging":
+            self.State = Configuration.Staging
+        else:
+            self.State = Configuration.Production
+
+Project = Project__(__state)
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
@@ -24,13 +43,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 
 
-# from ..credentials import Credentials
-SECRET_KEY = Credentials.SECRET_KEY
+# from ..credentials import Credentials:
+SECRET_KEY = Project.State.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = Credentials.DEBUG
+DEBUG = Project.State.DEBUG
 
-ALLOWED_HOSTS = Credentials.ALLOWED_HOSTS
+ALLOWED_HOSTS = Project.State.ALLOWED_HOSTS
 
 
 # Application definition
@@ -46,12 +65,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # apps from this project
+    "application",
     "todos",
     "api",  # REST API
     "postgresql_app",
+    "telegram",
+    "learning.apps.LearningConfig",
 
     # pip install djangorestframework
-    "rest_framework"
+    "rest_framework",
+    # pip install django-livereload-server
+    "livereload",
 ]
 
 MIDDLEWARE = [
@@ -62,6 +86,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # from django-livereload server
+    'livereload.middleware.LiveReloadScript',
 ]
 
 ROOT_URLCONF = 'application.urls'
@@ -73,7 +99,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'templates'),
             # the fix was this
             # os.path.join(BASE_DIR, 'todos/templates'),
-            # but if the app is installed, you dont need this anymore
+            # but if the app is installed in INSTALLED_APPS, you dont need this anymore
         ],
         # this means that django will
         # try to search for /templates inside every app that you created with django-admin startapp $appname
@@ -112,11 +138,11 @@ DATABASES = {
     # Credentials.PostgreSQL.DATABASE_DJANGO: {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": Credentials.PostgreSQL.DATABASE_DJANGO,
-        "USER": Credentials.PostgreSQL.USERNAME,
-        "PASSWORD": Credentials.PostgreSQL.PASSWORD,
-        "HOST": Credentials.PostgreSQL.HOST,
-        "PORT": Credentials.PostgreSQL.PORT
+        "NAME": Project.State.PostgreSQL.DATABASE_DJANGO,
+        "USER": Project.State.PostgreSQL.USERNAME,
+        "PASSWORD": Project.State.PostgreSQL.PASSWORD,
+        "HOST": Project.State.PostgreSQL.HOST,
+        "PORT": Project.State.PostgreSQL.PORT
     }
 }
 
@@ -149,13 +175,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
@@ -208,4 +230,22 @@ REST_FRAMEWORK = {
     ]
 }
 
+# for django-redis
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        # 1 is database number
+        # redis has from 0 to 15 (16 total)
+        # "LOCATION": "redis://127.0.0.1:6379",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
 
+
+LIVERELOAD_HOST="localhost"
+LIVERELOAD_PORT="5554"

@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title> context menu </title>
+
+	{# jquery 3.6.0 production uncompressed min js #}
+	<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+
+	<link href="{% static 'website-logo.png' %}" rel="shortcut icon" type="image/png">
+
+	<style>
+		.cls-context-menu-link {
+			display: block;
+			padding: 20px;
+			background: black;
+		}
+
+		.cls-context-menu {
+			position: absolute;
+			display: none;
+			border: solid 1px  #ABB;
+		}
+
+		.cls-context-menu ul,
+		#context-menu li {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			background: #282c34;
+		}
+
+		.cls-context-menu li {
+			border-bottom: solid 1px  #ABB;
+		}
+
+		.cls-context-menu li:last-child {
+			border: none;
+		}
+
+		.cls-context-menu li a {
+			display: block;
+			padding: 5px 10px;
+			text-decoration: none;
+			color: #e5c07b;
+			/*border-radius: 10px;*/
+
+		}
+
+		.cls-context-menu li a:hover {
+			background:  #e5c07b;
+			color: #282c34;
+			/*border-radius: 10px;*/
+
+		}
+	</style>
+</head>
+
+<body>
+	<script>
+
+		/** close the right click context menu on click */
+		document.onclick = function(e) {
+			// var rgtClickContextMenu = $('#div-context-menu');
+			// asta nu are voie sa fie global, altfel nu merge
+			var rgtClickContextMenu = document.getElementById('div-context-menu');
+			rgtClickContextMenu.style.display = 'none';
+		}
+
+		/**
+		 present the right click context menu ONLY for the elements having the right class
+
+		*/
+		document.oncontextmenu = function(e) {
+			//alert(e.target.id)
+			var rgtClickContextMenu = document.getElementById('div-context-menu');
+			var elmnt = e.target
+			if (elmnt.className.startsWith("cls-context-menu")) {
+				e.preventDefault();
+				var eid = elmnt.id.replace(/link-/, "")
+				rgtClickContextMenu.style.left = e.pageX + 'px'
+				rgtClickContextMenu.style.top = e.pageY + 'px'
+				rgtClickContextMenu.style.display = 'block'
+				var toRepl = "to=" + eid.toString()
+				rgtClickContextMenu.innerHTML = rgtClickContextMenu.innerHTML.replace(/to=\d+/g, toRepl)
+				//alert(rgtClickContextMenu.innerHTML.toString())
+			}
+		}
+
+	</script>
+	<div class="main-container">
+		<a id="link-1" href="#" class="cls-context-menu-link">
+			right click link-01</a>
+
+		<a id="link-2" href="#" class="cls-context-menu-link">
+			right click link-02</a>
+
+		<div id="div-context-menu" class="cls-context-menu">
+			<ul>
+				<li><a href="#to=0">one </a></li>
+				<li><a href="#to=0">two </a></li>
+				<li><a href="#to=0">tree3 </a></li>
+				<li><a href="#to=0">a very very long item here </a></li>
+			</ul>
+		</div>
+	</div>
+</body>
+
+</html>

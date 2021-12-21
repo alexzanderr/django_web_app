@@ -19,16 +19,28 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    # efectivelly include urls.py from todos folder
+    # /
     path("", views.index, name="index"),
+    # /routes
+    path("routes", views.application_routes, name="application_routes"),
+    # /routes/json
+    path("routes/json", views.application_routes_json, name="application_routes_json"),
 
     # /todos
+    # efectivelly include urls.py from todos folder
     path("todos/", include("todos.urls")),
 
     # how about /api, aici folosim django rest API
     path("api/", include("api.urls")),
 
-    # /postgres interface
-    path("postgres/", include("postgresql_app.urls"))
+    # /postgres
+    path("postgres/", include("postgresql_app.urls")),
+    # /context_menu
+    path("context_menu", views.context_menu_index, name="context_menu_index"),
+    # /admin
+    path('admin/', admin.site.urls),
+    # /telegram
+    path('telegram/', include("telegram.urls")),
+    # /learning
+    path('learning/', include("learning.urls")),
 ]

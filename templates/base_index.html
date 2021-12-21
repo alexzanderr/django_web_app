@@ -1,14 +1,17 @@
 {% load static %}
+{% load livereload_tags %}
 <!DOCTYPE html>
 <html>
 
 <head>
-	<title> base index </title>
+	{% block title %}
+		<title> base index </title>
+	{% endblock %}
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-		integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	{# jquery 3.6.0 production uncompressed min js #}
+	<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 
 	<!-- for this to work i added  -->
   <!-- os.path.join(BASE_DIR, "static/logo"), -->
@@ -16,21 +19,31 @@
 	<!-- <link href="static/logo/website-logo.png" rel="icon"> -->
 	<link href="{% static 'css/base.css' %}" rel="stylesheet" type="text/css">
 
+	<!-- for django live reload server -->
+	{% livereload_script %}
+
+	{% block custom_style %}
+
+	{% endblock %}
 </head>
 
 <body>
 	<div>
 		<div>
-			hello world is this located in
+			<div>
+				(live reload its active)
+				base template:
 
-		</div>
-		<div>
-			<strong>
-				django_web_app/application/templates/base_index.html
+			</div>
+			<strong style="padding-left: 20px">
+				templates/base_index.html
 			</strong>
 		</div>
+		<br>
 
-		{% block wrapped %} {% endblock %}
+		{% block wrapped %}
+
+		{% endblock %}
 	</div>
 </body>
 

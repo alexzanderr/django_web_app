@@ -1,0 +1,42 @@
+
+# version of docker compose file
+version: "3.8"
+
+services:
+  # to connect to running container
+  # docker exec -it 20ed5326d28e /bin/bash
+  app:
+    # Dockerfile at current dir of this compose file
+    build: .
+    # localhost in docker container i will never access
+    # it must be 0.0.0.0 to run on all ips
+    command: python manage.py runserver 0.0.0.0:4444
+    volumes:
+      # root of django project on local machine is linked to the /django_web_app on container
+      - ".:/django_web_app_simulation"
+    ports:
+      - 4444:4444
+    image: django_web_app_simulation
+    container_name: django_web_app_simulation_container
+    depends_on:
+      - postgressql_db
+
+  # to connect to postgresql into the containter
+  # docker exec -it 20ed5326d28e psql -U postgres
+  postgresql_db:
+    image: postgres
+    container_name: postgressql_db
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  # to connect to mongo
+  # docker exec -it 20ed5326d28e psql -U postgres
+  mongo_db:
+    image: mongo
+    container_name: mongo_db
+    # environment:
+    #   - POSTGRES_DB=postgres
+    #   - POSTGRES_USER=postgres
+    #   - POSTGRES_PASSWORD=postgres

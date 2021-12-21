@@ -20,6 +20,9 @@ quick description about this project:
 - uses Jquery + ajax
 - kubernetes? nah, its too big to implement in 2 days
 
+team leader:
+a.lodin@solarlux.de
+
 # password for demo
 4jvndu__asd!123@#qmgh49195AND
 
@@ -27,10 +30,12 @@ quick description about this project:
 just.a.test.email@gmail.com
 
 
+pytest
+
 # Questions from me!
 - ce OS ?
 - ce Version Control ?
-- ce Database ?
+- ce Database ? mysql
 - ce web server pentru deploy, gunicorn ?
 - ce web server pentru reverse proxy, nginx ?
 - ce IDE + ce language server?

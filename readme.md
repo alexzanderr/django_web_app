@@ -24,10 +24,23 @@ quick description about this project:
 - kubernetes? nah, its too big to implement in 2 days
 
 
-
 ```py
 python manage.py createsuperuser --email just.python.mail.test@gmail.com --username alexzander
 ```
+
+
+
+# create django project inside venv without creating extra directories
+```shell
+django-admin startproject $name .
+```
+note: `.` is very important
+
+
+# disclaimer
+ofcourse there are a lot of quick snippet for solvig problems that i could have pasted here, but i was too lazy for that because i had a deadline, so enjoy a short readme
+
+
 
 # Documentation for django
 references:
@@ -68,6 +81,14 @@ references:
 - https://stackoverflow.com/questions/20175243/django-gunicorn-not-load-static-files
 - https://stackoverflow.com/questions/1474374/nginx-doesnt-serve-static
 - https://stackoverflow.com/questions/1275486/django-how-can-i-see-a-list-of-urlpatterns
+- https://semaphoreci.com/community/tutorials/dockerizing-a-python-django-web-application
+- https://github.com/realpython/dockerizing-django
+- https://www.youtube.com/watch?v=vJAfq6Ku4cI
+- https://github.com/stephenmcd/django-socketio
+- https://github.com/jazzband/django-redis
+- https://stackoverflow.com/questions/1275486/django-how-can-i-see-a-list-of-urlpatterns
+- https://realpython.com/django-nginx-gunicorn/
+- https://github.com/dcramer/django-devserver
 -
 -
 -
@@ -75,16 +96,12 @@ references:
 -
 -
 -
-- 
-
-
-
-# create django project inside venv without creating extra directories
-```shell
-django-admin startproject $name .
-```
-note: `.` is very important
-
-
-# disclaimer
-ofcourse there are a lot of quick snippet for solvig problems that i could have pasted here, but i was too lazy for that because i had a deadline, so enjoy a short readme
+-
+-
+-
+-
+-
+-
+-
+-
+-
