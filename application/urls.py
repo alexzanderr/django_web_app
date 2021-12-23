@@ -18,6 +18,8 @@ from django.urls import path, include
 
 from . import views
 
+
+
 urlpatterns = [
     # /
     path("", views.index, name="index"),
@@ -44,3 +46,5 @@ urlpatterns = [
     # /learning
     path('learning/', include("learning.urls")),
 ]
+
+handler404 = "learning.views.learning_custom_404_page"

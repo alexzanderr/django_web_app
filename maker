@@ -1,0 +1,21 @@
+#!/usr/bin/sh
+
+# this file exists because when i want
+# to run commands from tmux session
+# i need the venv to be activated
+source .venv/bin/activate
+
+
+param=$1
+if [[ "$param" == "live" ]]; then
+	make live
+elif [[ "$param" == "dev" ]]; then
+	make
+elif [[ "$param" == "ipy" ]]; then
+	make ipy
+else
+	echo "you must provide args"
+	echo "like"
+	echo -e "\t ./manager.sh live (for livereload server)"
+	echo -e "\t ./manager.sh dev (for django dev server)"
+fi

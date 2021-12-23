@@ -1,32 +1,53 @@
 
+from rest_framework.authtoken.models import Token
+from .serializers import AuthTokenJSONSerializer
+from .models import AuthToken
+from views_enhanced import json_api_response
+from views_enhanced import json_response
+from views_enhanced import _patch
+from views_enhanced import _delete
+from views_enhanced import _get_post
+from views_enhanced import _get
+from credentials import Configuration
+from string import ascii_letters, digits
+from random import choice, randint
+from mongo_client import Database
+from rest_framework import status
+from rest_framework.response import Response as APIResponse
+from rest_framework.response import Serializer
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpRequest
 from django.http import JsonResponse
 
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.authentication import BasicAuthentication
 from rest_framework.decorators import api_view
 from rest_framework.decorators import permission_classes
-from rest_framework import permissions
+from rest_framework.permissions import AllowAny
+_allow_any = (AllowAny,)
 
-
-from .models import AuthToken
-
-from mongo_client import Database
-from views_enhanced import json_response
 
 # https://stackoverflow.com/questions/31335736/cannot-apply-djangomodelpermissions-on-a-view-that-does-not-have-queryset-pro
 
-from random import choice, randint
-from string import ascii_letters, digits
 
 def generate_random_token():
     return "".join([choice(ascii_letters + digits) for _ in range(30)])
 
 
+# postgresql db -> django_web_app_postgresql_db
+postgres = Configuration.Development.PostgreSQL.DATABASE_DJANGO
+
+
+# current project
+
+
 # GET /api/
-@api_view(["GET"])
 # TODO fix permissions in production
-@permission_classes((permissions.AllowAny,))
+@api_view(["GET"])
+@permission_classes(_allow_any)
 def api_index(request: HttpRequest):
     return JsonResponse({
         "message": "rest api its working"
@@ -35,7 +56,7 @@ def api_index(request: HttpRequest):
 
 # GET /api/todos
 @api_view(["GET"])
-@permission_classes((permissions.AllowAny,))
+@permission_classes(_allow_any)
 def api_todos(request: HttpRequest):
     # lists todos
     todo_list = []
@@ -50,46 +71,176 @@ def api_todos(request: HttpRequest):
     })
 
 
-# GET /api/login
-# GET /api/login?token=aopshnfasopbfhaujisbfiobhuj
-@api_view(["GET"])
-@permission_classes((permissions.AllowAny,))
-def api_login(request: HttpRequest):
-    url_token = request.GET.get("token")
-    if not url_token:
-        return json_response({
-            "message": "forbidden, you must provide ?token",
+# GET /api/postgres/tokens
+class PostgresTokensView(APIView):
+    permission_classes = _allow_any
+
+    def get(self,
+            request: HttpRequest,
+            primary_key: int = None
+            ):
+        if primary_key:
+            token = AuthToken.tokens.get_or_none(pk=primary_key)
+            if token:
+                _token = AuthTokenJSONSerializer(token).data
+                return json_api_response({
+                    "status": 200,
+                    "token": _token
+                })
+
+            return json_api_response({
+                "status": 404,
+                "message": f"token with id: '{primary_key}' not found"
+            }, status=404)
+
+        tokens = AuthToken.tokens.all()
+        return json_api_response({
+            "status": 200,
+            "tokens": AuthTokenJSONSerializer(tokens, many=True).data
+        })
+
+
+class TokenUtilities:
+    def token_success_message(self, _token: AuthToken, **keyword_arguments):
+        _json_resp = {
+            "status": "success",
+            "message": f"you generated this new token",
+            "token": {
+                "id": _token.id,  # type: ignore
+                "value": _token.token
+            },
+            "code": 200
+        }
+        _json_resp.update(**keyword_arguments)
+        return _json_resp
+
+    def token_login_success_message(self, _token, **keyword_arguments):
+        _json_resp = {
+            "status": "success",
+            "message": f"you are now logged in with token: {_token.token}",
+            "code": 200
+        }
+        _json_resp.update(**keyword_arguments)
+        return _json_resp
+
+    def token_login_error_message(self, _token, **keyword_arguments):
+        _json_resp = {
+            "status": "error",
+            "message": f"invalid token: {_token.token}",
+            "code": 200
+        }
+        _json_resp.update(**keyword_arguments)
+        return _json_resp
+
+    def token_error_message(self, _token: AuthToken, **keyword_arguments):
+        _json_resp = {
+            "status": "error",
+            "message": f"sorry, this token: '{_token.token}' is already in database",
+            "token": {
+                "id": _token.id,  # type: ignore
+                "value": _token.token
+            },
             "code": 403
-        }, 403)
-
-    database_token = AuthToken.objects.filter(token=url_token).first()
-    if not database_token:
-        return json_response({
-            "message": "invalid token",
-            "code": 403
-        }, 403)
-
-    return json_response({
-        "message": f"you are now logged in with token: {url_token}",
-        "code": 200
-    }, 200)
+        }
+        _json_resp.update(**keyword_arguments)
+        return _json_resp
 
 
-# GET /api/new_token
-# GET /api/new_token?name=aopshnfasopbfhaujisbfiobhuj
-@api_view(["GET"])
-@permission_classes((permissions.AllowAny,))
-def api_new_token(request: HttpRequest):
-    new_token = request.GET.get("name")
-    database_token = AuthToken.objects.filter(token=new_token).first()
 
-    if database_token:
-        return json_response({
-            "message": "token already in database, sorry",
-            "code": 403
-        }, 403)
+# GET /api/postgres/tokens/new
+# GET /api/postgres/tokens/new?value=aopshnfasopbfhaujisbfiobhuj
+class PostgresNewTokenView(APIView, TokenUtilities):
+    permission_classes = _allow_any
 
-    return json_response({
-        "message": f"you generated new token: {new_token}",
-        "code": 200
-    }, 200)
+    def get(self, request: HttpRequest):
+        new_token = request.GET.get("value")
+        # return APIResponse({"value": new_token})
+        if new_token:
+            database_token = AuthToken.tokens.filter(token=new_token)
+
+            if database_token:
+                return json_api_response(
+                    self.token_error_message(database_token[0]),
+                    403)
+
+            new_token = AuthToken.tokens.create(token=new_token)
+
+            return json_api_response(
+                self.token_success_message(new_token))
+
+        random_new_token = generate_random_token()
+        database_token = AuthToken.tokens.filter(token=random_new_token)  # type: ignore
+        while database_token:
+            random_new_token = generate_random_token()
+            database_token = AuthToken.tokens.filter(token=random_new_token)  # type: ignore
+
+        new_token = AuthToken.tokens.create(token=random_new_token)
+
+        return json_api_response(
+            self.token_success_message(new_token))
+
+
+
+
+import json
+
+# GET /api/login (browser request)
+# GET /api/login (ajax request)
+# GET /api/login?token=aopshnfasopbfhaujisbfiobhuj (browser request)
+class APILoginView(APIView, TokenUtilities):
+    permission_classes = _allow_any
+
+    def get_request_origin(self, request: HttpRequest):
+        return request.is_ajax()
+
+
+    def get(self, request: HttpRequest):
+        _ajax_request = True if request.is_ajax() else False
+        _request_origin = "request made from AJAX" if _ajax_request else "requrest made from browser"
+
+        if _ajax_request:
+            json_body = json.loads(request.body)
+            try:
+                url_token = json_body["url_token"]
+            except (KeyError, Exception) as error:
+                return json_api_response({
+                    "status": "error",
+                    "message": "looks like you need to provide the token in AJAX body",
+                    "error": str(error)
+                })
+            else:
+                return url_token
+
+        url_token = request.GET.get("token")
+        if not url_token:
+            return json_api_response({
+                "status": "error",
+                "message": "forbidden, you must provide ?token",
+                "extra": _request_origin,
+                "code": 403
+            }, 403)
+
+
+
+        database_token = AuthToken.tokens.filter(token=url_token)
+        if not database_token:
+            return json_api_response({
+                "status": "error",
+                "message": f"invalid token: {url_token}",
+                "extra": _request_origin,
+                "code": 403
+            }, 403)
+
+        return json_api_response({
+            "status": "success",
+            "message": f"you are now logged in with token: {url_token}",
+            "extra": _request_origin,
+            "code": 200
+        }, 200)
+
+
+# @api_view(_get)
+# @permission_classes(_allow_any)
+# def api_new_token_from_model(request):
+#     token = Token.objects.create(user=...)
+#     print(token.key)

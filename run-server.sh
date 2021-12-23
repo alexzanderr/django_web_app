@@ -18,5 +18,5 @@ pip freeze > requirements.txt
 # python ./manage.py migrate
 # run dev server
 # this server autoreloads after python code changes
-python ./manage.py runserver 5555
-
+# python ./manage.py runserver 5555
+python manage.py runserver_plus 0:5555

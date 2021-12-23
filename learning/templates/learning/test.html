@@ -1,0 +1,14 @@
+{% extends 'base_index.html' %}
+
+{% block wrapped %}
+  <div>
+  <a href="{% url 'learning:learning_error' %}">
+    {% url 'learning:learning_error' %}
+  </a>
+  <div>
+    si uite asa pui parametru la url for in django
+    <div>
+      \{% url 'detail' question.id %\}
+    </div>
+  </div>
+{% endblock %}

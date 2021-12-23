@@ -11,6 +11,9 @@ project="django_web_app"
 run:
 	./run-server.sh
 
+dev:
+	./run-server.sh
+
 test:
 	pytest -vv -x -rP -n 2
 
@@ -27,3 +30,10 @@ clean:
 	rm -rfv dist
 	rm -rfv $(SPEC_FILE)
 	rm -rfv .pytest_cache
+
+live:
+	python manage.py livereload
+
+ipy:
+	python manage.py shell_plus --ptpython
+

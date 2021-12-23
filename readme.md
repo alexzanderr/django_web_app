@@ -89,19 +89,18 @@ references:
 - https://stackoverflow.com/questions/1275486/django-how-can-i-see-a-list-of-urlpatterns
 - https://realpython.com/django-nginx-gunicorn/
 - https://github.com/dcramer/django-devserver
--
--
--
--
--
--
--
--
--
--
--
--
--
+- https://docs.djangoproject.com/en/3.1/intro/reusable-apps/
+- https://docs.djangoproject.com/en/4.0/topics/db/multi-db/
+- https://django-extensions.readthedocs.io/en/latest/runserver_plus.html
+- https://www.django-rest-framework.org/api-guide/authentication/
+- https://dzone.com/articles/cookies-vs-tokens-the-definitive-guide
+- https://stackoverflow.com/questions/3519143/django-how-to-specify-a-database-for-a-model/60453322#60453322
+- https://stackoverflow.com/questions/3519143/django-how-to-specify-a-database-for-a-model
+- https://stackabuse.com/building-a-graphql-api-with-django/
+- https://stackabuse.com/working-with-redis-in-python-with-django/
+- https://www.youtube.com/watch?v=b-6mEAr1m-A
+- https://stackoverflow.com/questions/70185942/why-i-am-getting-not-implemented-error-database-objects-do-not-implement-truth
+- https://django-mongodb-engine.readthedocs.io/en/latest/tutorial.html#migration-free-model-changes
 -
 -
 -

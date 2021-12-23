@@ -6,32 +6,32 @@
 - [x] add static folder for every app and tell django where its located
 - [x] extend a template that is not in the current app, but it is in root/templates
 - [x] extend a template that is in the same dir as current template
-- [ ] what if the templates do have the same name in different templates folder, what do you do?
-- [ ] pytest https://djangostars.com/blog/django-pytest-testing/
+- [x] what if the templates do have the same name in different templates folder, what do you do?; you create `app/templates/app/index.html`; with this you can tell django to load `app/index.html` and you can keep the index without naming like `app_index.html`
+- [x] pytest https://djangostars.com/blog/django-pytest-testing/
 - [x] add Jquery as local module, not from CDN, and also for socket io
 - [x] add classes as views
-- [ ] run server with interactive mode
+- [x] run server with interactive mode (you cant because python REPL is not multi-threaded; instead you can run `python manage.py shell` and this will open a shell with REPL with django settings)
 - [ ] add rich traceback to django runserver
 - [ ] try djongo, just like mongo alchemy - https://www.djongomapper.com/get-started/
-- [ ] create tmux session for this project
+- [x] create tmux session for this project
 - [ ] add generate random password button in JS for register UI
-- [ ] add view password for register
-- [ ] how to test django mini apps individually? because there is a tests file or folder inside every app
+- [ ] add view password checkbox for register
+- [x] how to test django mini apps individually? because there is a tests file or folder inside every app; with pytest you create a tests folder and pytest will take care of the rest
 - [ ] add pytest-factoryboy and faker for databases
 - [ ] test frontend with selenium (here we need a person to watch the page changes)
-- [ ] django how to list all routes automatically on a page (python manage.py shell -c 'from django.core.management import call_command; from django_extensions.management.commands.show_urls import Command; call_command(Command())')
+- [x] django how to list all routes automatically on a page (python manage.py shell -c 'from django.core.management import call_command; from django_extensions.management.commands.show_urls import Command; call_command(Command())')
 - [ ] consider putting all django apps in the main app under a folder called "apps"
 - [ ] add table of contents to your site, just like real python
 - [ ] add view count to a page "this page has been viewed fot 15 times"
 - [ ] add stripe to django, at least for testing
 - [ ] add celery to django
-- [ ] add custom 404 beautiful page
+- [x] add custom 404 beautiful page
 - [ ] change text selection on frontend
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
+- [ ] add livereload to tmux session
+- [ ] try Sass css framework
+- [ ] add check availability after typing a username in real time with async
+- [ ] add progress bar when making a reqest in the UI
+- [ ] migrate from mongo client to djongo models
 - [ ]
 - [ ]
 - [ ]

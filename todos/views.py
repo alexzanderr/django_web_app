@@ -10,21 +10,29 @@ from django.views.decorators.http import require_http_methods
 # python
 from datetime import datetime
 
+# current project
+from .apps import TodosConfig
 from mongo_client import Database
-
 from application import models
 
+from views_enhanced import TemplateEngine
+from views_enhanced import json_response
+
+
+_render = TemplateEngine(TodosConfig.name)
+
 # GET /todos
-def todos_index(request):
+def todos_index(request: HttpRequest):
     todo_list = []
     for todo in Database.todos.find():
         todo["oid"] = str(todo["_id"])
         del todo["_id"]
         todo_list.append(todo)
 
-    return render(request, "todos_index.html", {
-        "todo_list": todo_list
-    })
+    return _render.index(request, {"todo_list": todo_list})
+    # return _render(request, "index.html", {
+    #     "todo_list": todo_list
+    # })
 
 
 # GET /todos/agent
@@ -35,11 +43,9 @@ def todos_agent(request: HttpRequest):
 
 
 def todos_mongo_test(request):
-    return JsonResponse(
+    return json_response(
         data=Database.todos.find_one({
             "_id": "61ba5667de8183a2824bfb9d"}),
-        safe=False,
-        status=200
     )
 
 def todos_testing(request):
@@ -55,15 +61,13 @@ def todos_extender(request):
 # GET /todos/json
 @require_http_methods(["GET"])
 def todos_json(request: HttpRequest):
-    return JsonResponse({
-        "message": "hello andrew"
-    }, status=200)
+    return json_response({"message": "hello andrew"})
 
 
 
 def todos_flask(request: HttpRequest):
     for item in Database.todos.find():
-        return JsonResponse({"message": item["text"]})
+        return json_response({"message": item["text"]})
 
 
 
@@ -131,7 +135,7 @@ class TodosRegister(View):
 
     # GET /todos/register (login page)
     def get(self, request: HttpRequest):
-        return render(request, "register.html")
+        return _render(request, "register.html")
 
 
 

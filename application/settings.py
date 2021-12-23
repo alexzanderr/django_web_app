@@ -74,8 +74,13 @@ INSTALLED_APPS = [
 
     # pip install djangorestframework
     "rest_framework",
+    "rest_framework.authtoken",
     # pip install django-livereload-server
     "livereload",
+
+    # pip install django-extensions
+    # like this './manage.py shell_plus --ptpython'
+    "django_extensions"
 ]
 
 MIDDLEWARE = [
@@ -130,26 +135,38 @@ WSGI_APPLICATION = 'application.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    # "default": {},
+    "default": {},
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # },
-    # Credentials.PostgreSQL.DATABASE_DJANGO: {
-    "default": {
+    # django_web_app_postgresql_db
+    Project.State.PostgreSQL.DATABASE_DJANGO: {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": Project.State.PostgreSQL.DATABASE_DJANGO,
         "USER": Project.State.PostgreSQL.USERNAME,
         "PASSWORD": Project.State.PostgreSQL.PASSWORD,
         "HOST": Project.State.PostgreSQL.HOST,
         "PORT": Project.State.PostgreSQL.PORT
+    },
+    # django_web_app_mongo_db
+    Project.State.MongoDB.DATABASE_DJANGO: {
+        "ENGINE": "djongo",
+        "NAME": Project.State.MongoDB.DATABASE_DJANGO,
+        "CLIENT": {
+            "host": Project.State.MongoDB.HOST,
+            "port": Project.State.MongoDB.PORT,
+            "username": Project.State.MongoDB.USERNAME,
+            "password": Project.State.MongoDB.PASSWORD,
+            "authSource": Project.State.MongoDB.AUTHSOURCE
+        }
     }
 }
 
-# DATABASE_ROUTERS = [
-#     'routers.database_routers.AuthRouter',
-#     'routers.database_routers.DjangoWebAppPostgresqlDB',
-# ]
+DATABASE_ROUTERS = [
+    'routers.database_routers.PostgresqlRouter',
+    'routers.database_routers.MongodbRouter',
+]
 
 
 # Password validation
@@ -222,12 +239,12 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly' not working
-        "rest_framework.permissions.DjangoModelPermissions"
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        "rest_framework.permissions.DjangoModelPermissions",
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.permissions.IsAdminUser'
-    ]
+    ],
 }
 
 # for django-redis
@@ -249,3 +266,20 @@ SESSION_CACHE_ALIAS = "default"
 
 LIVERELOAD_HOST="localhost"
 LIVERELOAD_PORT="5554"
+
+# Always use ptpython for shell_plus
+SHELL_PLUS = "ptpython"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {"rich": {"datefmt": "[%X]"}},
+    "handlers": {
+        "console": {
+            "class": "rich.logging.RichHandler",
+            "formatter": "rich",
+            "level": "DEBUG",
+        }
+    },
+    "loggers": {"django": {"handlers": ["console"]}},
+}
