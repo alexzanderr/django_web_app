@@ -270,6 +270,7 @@ LIVERELOAD_PORT="5554"
 # Always use ptpython for shell_plus
 SHELL_PLUS = "ptpython"
 
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -279,6 +280,9 @@ LOGGING = {
             "class": "rich.logging.RichHandler",
             "formatter": "rich",
             "level": "DEBUG",
+
+            # not working
+            # "rich_traceback": True,
         }
     },
     "loggers": {"django": {"handlers": ["console"]}},

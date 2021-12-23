@@ -244,3 +244,9 @@ class APILoginView(APIView, TokenUtilities):
 # def api_new_token_from_model(request):
 #     token = Token.objects.create(user=...)
 #     print(token.key)
+
+
+@api_view(_get)
+@permission_classes(_allow_any)
+def api_error(r):
+    raise ValueError("asd")

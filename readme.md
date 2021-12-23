@@ -101,6 +101,18 @@ references:
 - https://www.youtube.com/watch?v=b-6mEAr1m-A
 - https://stackoverflow.com/questions/70185942/why-i-am-getting-not-implemented-error-database-objects-do-not-implement-truth
 - https://django-mongodb-engine.readthedocs.io/en/latest/tutorial.html#migration-free-model-changes
+- https://www.willmcgugan.com/blog/tech/post/richer-django-logging/
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
 -
 -
 -

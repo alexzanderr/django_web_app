@@ -25,6 +25,10 @@ urlpatterns = [
     # /api/login -> forbidden
     path("login", views.APILoginView.as_view(), name="api_login"),
 
+    # /api/error
+    path("error", views.api_error),
+
+
     # /postgres
     # path("postgres", views.postgres, name="postgres"),
 ]
