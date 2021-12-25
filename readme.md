@@ -102,8 +102,8 @@ references:
 - https://stackoverflow.com/questions/70185942/why-i-am-getting-not-implemented-error-database-objects-do-not-implement-truth
 - https://django-mongodb-engine.readthedocs.io/en/latest/tutorial.html#migration-free-model-changes
 - https://www.willmcgugan.com/blog/tech/post/richer-django-logging/
--
--
+- https://stackoverflow.com/questions/23832375/how-to-set-up-a-custom-logger-filter-in-django
+- https://www.youtube.com/watch?v=4zbehnz-8QU (de pus minutul 9 in django exceptions)
 -
 -
 -

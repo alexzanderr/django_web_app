@@ -283,7 +283,13 @@ LOGGING = {
 
             # not working
             # "rich_traceback": True,
-        }
+        },
+        # not working
+        # "file": {
+        #     "class": "rich.logging.RichHandler",
+        #     "filename": "logs/dev_server/logs.log",
+        #     "level": "DEBUG",
+        # }
     },
     "loggers": {"django": {"handlers": ["console"]}},
 }

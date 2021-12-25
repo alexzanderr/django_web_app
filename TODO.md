@@ -11,7 +11,7 @@
 - [x] add Jquery as local module, not from CDN, and also for socket io
 - [x] add classes as views
 - [x] run server with interactive mode (you cant because python REPL is not multi-threaded; instead you can run `python manage.py shell` and this will open a shell with REPL with django settings)
-- [ ] add rich traceback to django runserver
+- [x] add rich traceback to django runserver
 - [ ] try djongo, just like mongo alchemy - https://www.djongomapper.com/get-started/
 - [x] create tmux session for this project
 - [ ] add generate random password button in JS for register UI

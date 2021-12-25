@@ -4,6 +4,8 @@
 # to run commands from tmux session
 # i need the venv to be activated
 source .venv/bin/activate
+pip freeze > requirements.txt
+
 
 
 param=$1
@@ -13,6 +15,12 @@ elif [[ "$param" == "dev" ]]; then
 	make
 elif [[ "$param" == "ipy" ]]; then
 	make ipy
+elif [[ "$param" == "run_server" ]]; then
+	python manage.py runserver 0:5555
+elif [[ "$param" == "server_plus" ]]; then
+	python manage.py runserver_plus 0:5555
+elif [[ "$param" == "pip" ]]; then
+	pip freeze > requirements.txt
 else
 	echo "you must provide args"
 	echo "like"

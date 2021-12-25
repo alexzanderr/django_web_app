@@ -18,7 +18,16 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    execute_from_command_line(sys.argv)
+
+
+    from rich.console import Console
+    _console = Console()
+    try:
+        execute_from_command_line(sys.argv)
+    except Exception:
+        _console.print_exception(
+        show_locals=True,
+        word_wrap=True)
 
 
 if __name__ == '__main__':
