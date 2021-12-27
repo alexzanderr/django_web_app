@@ -33,9 +33,7 @@ _allow_any = (AllowAny,)
 # https://stackoverflow.com/questions/31335736/cannot-apply-djangomodelpermissions-on-a-view-that-does-not-have-queryset-pro
 
 
-def generate_random_token():
-    return "".join([choice(ascii_letters + digits) for _ in range(30)])
-
+from utilities import generate_random_token
 
 # postgresql db -> django_web_app_postgresql_db
 postgres = Configuration.Development.PostgreSQL.DATABASE_DJANGO
@@ -250,3 +248,60 @@ class APILoginView(APIView, TokenUtilities):
 @permission_classes(_allow_any)
 def api_error(r):
     raise ValueError("asd")
+
+
+
+from todos.models import RegisterToken
+from todos.serializers import RegisterTokenJSONSerializer
+from datetime import datetime
+
+def has_token_expired(_timestamp: float):
+    return datetime.timestamp(datetime.now()) > _timestamp
+
+
+@api_view(_get)
+@permission_classes(_allow_any)
+def api_todos_models_register_tokens_view(request, _id: int=None):
+    # _all = RegisterToken.manager.create(token="random", expiration_timestamp=datetime.timestamp(datetime.now()))
+
+    if _id:
+        if not (0 < _id < len(RegisterToken.manager.all())):
+            raise IndexError("_id must be between 0 and max contents")
+
+        token = RegisterToken.manager.all()[_id]
+        data = RegisterTokenJSONSerializer(token).data
+        return json_api_response({"code": 200, "token": data})
+
+
+    tokens = RegisterToken.manager.all()
+    # print(tokens[0].expired)
+    _json = RegisterTokenJSONSerializer(tokens, many=True)
+    # print(_json)
+    return json_api_response({"code": 200, "tokens": _json.data})
+
+    # _token = AuthTokenJSONSerializer(token).data
+    # print(token[0].id)
+    # print(token[0]._id)
+    # print(token[0].token)
+    # print(token[0].expiration_timestamp)
+
+
+from datetime import timedelta
+
+@api_view(_get)
+@permission_classes(_allow_any)
+def api_todos_models_register_tokens_new(request):
+    new_token = RegisterToken.manager.create(
+        token=generate_random_token(),
+        expiration_timestamp=datetime.timestamp(
+            datetime.now() + timedelta(minutes=5))
+    )
+
+
+    # _token = AuthTokenJSONSerializer(token).data
+    # print(token[0].id)
+    # print(token[0]._id)
+    # print(token[0].token)
+    # print(token[0].expiration_timestamp)
+    data = RegisterTokenJSONSerializer(new_token).data
+    return json_api_response({"code": 200, "token": data})

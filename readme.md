@@ -104,7 +104,7 @@ references:
 - https://www.willmcgugan.com/blog/tech/post/richer-django-logging/
 - https://stackoverflow.com/questions/23832375/how-to-set-up-a-custom-logger-filter-in-django
 - https://www.youtube.com/watch?v=4zbehnz-8QU (de pus minutul 9 in django exceptions)
--
+- https://stackoverflow.com/questions/17066074/modelserializer-using-model-property
 -
 -
 -

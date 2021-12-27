@@ -31,4 +31,13 @@ urlpatterns = [
 
     # /postgres
     # path("postgres", views.postgres, name="postgres"),
+
+    # /api/todos/models/register_tokens
+    path("todos/models/register_tokens", views.api_todos_models_register_tokens_view),
+    # /api/todos/models/register_tokens/0
+    path("todos/models/register_tokens/<int:_id>", views.api_todos_models_register_tokens_view),
+
+    # /api/todos/models/register_tokens/new
+    path("todos/models/register_tokens/new", views.api_todos_models_register_tokens_new),
+
 ]
