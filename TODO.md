@@ -20,20 +20,20 @@
 - [ ] add pytest-factoryboy and faker for databases
 - [ ] test frontend with selenium (here we need a person to watch the page changes)
 - [x] django how to list all routes automatically on a page (python manage.py shell -c 'from django.core.management import call_command; from django_extensions.management.commands.show_urls import Command; call_command(Command())')
-- [ ] consider putting all django apps in the main app under a folder called "apps"
+- [ ] consider putting all django apps in the main app under a folder called "apps" ( nu mai poti sa importi din manage.py shell)
 - [ ] add table of contents to your site, just like real python
 - [ ] add view count to a page "this page has been viewed fot 15 times"
 - [ ] add stripe to django, at least for testing
 - [ ] add celery to django
 - [x] add custom 404 beautiful page
 - [ ] change text selection on frontend
-- [ ] add livereload to tmux session
+- [x] add livereload to tmux session
 - [ ] try Sass css framework
 - [ ] add check availability after typing a username in real time with async
 - [ ] add progress bar when making a reqest in the UI
 - [ ] migrate from mongo client to djongo models
-- [ ]
-- [ ]
+- [ ] add remote databases (mongo in atlas, postgres in cloud si mysql in cloud) cand dai clone la django repo plus settings sa stii ca dai clone la repo pentru remote
+- [ ] add cursor progress on the top of the page
 - [ ]
 - [ ]
 - [ ]

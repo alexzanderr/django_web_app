@@ -1,6 +1,8 @@
 
+# quick info
+please `dont read` this `readme`, because i didnt have time to present everything in details
 
-# This is a Django project prepared as demo for interview
+# Just a Django project
 
 quick description about this project:
 - python 3.6.15
@@ -105,7 +107,7 @@ references:
 - https://stackoverflow.com/questions/23832375/how-to-set-up-a-custom-logger-filter-in-django
 - https://www.youtube.com/watch?v=4zbehnz-8QU (de pus minutul 9 in django exceptions)
 - https://stackoverflow.com/questions/17066074/modelserializer-using-model-property
--
+- https://testdriven.io/blog/django-stripe-tutorial/
 -
 -
 -

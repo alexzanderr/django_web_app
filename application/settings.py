@@ -141,6 +141,14 @@ DATABASES = {
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # },
     # django_web_app_postgresql_db
+    "django_web_app_auth_db": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "django_web_app_auth_db",
+        "USER": Project.State.PostgreSQL.USERNAME,
+        "PASSWORD": Project.State.PostgreSQL.PASSWORD,
+        "HOST": Project.State.PostgreSQL.HOST,
+        "PORT": Project.State.PostgreSQL.PORT
+    },
     Project.State.PostgreSQL.DATABASE_DJANGO: {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": Project.State.PostgreSQL.DATABASE_DJANGO,
@@ -164,6 +172,7 @@ DATABASES = {
 }
 
 DATABASE_ROUTERS = [
+    "routers.database_routers.AuthRouter",
     'routers.database_routers.PostgresqlRouter',
     'routers.database_routers.MongodbRouter',
 ]

@@ -52,21 +52,3 @@ class AuthToken(models.Model):
         db_table = "\"auth_tokens_table\""
 
 
-
-
-
-class CommonInfo(models.Model):
-    name = models.CharField(max_length=100)
-    age = models.PositiveIntegerField()
-
-    class Meta:
-        abstract = True
-        # the columns will be in this order
-        ordering = ["name", "age"]
-
-class Student(CommonInfo):
-    """
-        this class inherits everything from CommonInfo
-        and also the sql table inherits everything from CommonInfo
-    """
-    home_group = models.CharField(max_length=5)
