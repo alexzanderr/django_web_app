@@ -48,5 +48,13 @@ def learning_ln(request):
 	return render(request, "learning/test.html", {})
 
 from django.views import generic
+from django.views import View
 
-class TestView(generic.ListView):""
+class PageViewCounter(View):
+	def get(self):
+		""
+
+
+
+class TestView(generic.ListView):
+	""

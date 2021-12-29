@@ -19,8 +19,11 @@ from views_enhanced import TemplateEngine
 from views_enhanced import json_response
 
 
+from datetime import datetime
+
 _render = TemplateEngine(TodosConfig.name)
 
+from analytics.models import TodosVisitCount
 # GET /todos
 def todos_index(request: HttpRequest):
     todo_list = []
@@ -29,10 +32,15 @@ def todos_index(request: HttpRequest):
         del todo["_id"]
         todo_list.append(todo)
 
-    return _render.index(request, {"todo_list": todo_list})
-    # return _render(request, "index.html", {
-    #     "todo_list": todo_list
-    # })
+
+    # TODO make this a decorator ?
+    TodosVisitCount.manager.create_default()
+    total_visits = TodosVisitCount.manager.get_total_visits()
+
+    return _render.index(request, {
+        "todo_list": todo_list,
+        "total_visits": total_visits
+    })
 
 
 # GET /todos/agent

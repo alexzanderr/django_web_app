@@ -15,6 +15,10 @@ urlpatterns = [
     	views.TodosAPIRegisterValidation.as_view(),
     	name='todos_api_register_validation'
     ),
+    path(
+        "register/validation/username",
+        views.TodosAPIRegisterValidationUsername.as_view(),
+    ),
     # /todos/api/mongo/add
     path("mongo/add", views.todos_api_mongo_add, name='todos_api_mongo_add'),
     # /todos/api/mongo/complete

@@ -21,6 +21,8 @@ from datetime import timedelta
 from mongo_client import Database
 from mongo_client import ObjectId
 
+from views_enhanced import json_response
+
 
 @require_http_methods(["GET"])
 def todos_api_index(request: HttpRequest):
@@ -124,10 +126,7 @@ def get_new_register_token():
 
     return brand_new_token
 
-
-
-# POST /todos/api/register/validation
-class TodosAPIRegisterValidation(View):
+class ValidationUtilities():
     username_regex = re.compile("[a-zA-Z0-9_]+")
     password_regex = re.compile(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})")
     email_regex = re.compile(r"[a-zA-Z0-9-.]+@[a-zA-Z0-9-.]+")
@@ -245,6 +244,13 @@ class TodosAPIRegisterValidation(View):
         }
 
 
+# POST /todos/api/register/validation
+class TodosAPIRegisterValidation(View, ValidationUtilities):
+
+
+
+
+
 
     # POST /todos/api/register/validation
     def post(self, request: HttpRequest):
@@ -310,3 +316,15 @@ class TodosAPIRegisterValidation(View):
                 })
 
             return JsonResponse(results, status=200)
+
+
+class TodosAPIRegisterValidationUsername(View, ValidationUtilities):
+    def post(self, request: HttpRequest):
+        if not request.is_ajax():
+            return json_response({
+                "message": "request must be from ajax"
+                }, 403)
+
+        json_from_request: dict = json.loads(request.body)  # type: ignore
+        username = json_from_request["username"]
+        return json_response({"username": self.validate_username(username)})

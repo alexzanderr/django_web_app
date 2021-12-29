@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     "postgresql_app",
     "telegram",
     "learning.apps.LearningConfig",
+    "analytics.apps.AnalyticsConfig",
 
     # pip install djangorestframework
     "rest_framework",
@@ -80,7 +81,10 @@ INSTALLED_APPS = [
 
     # pip install django-extensions
     # like this './manage.py shell_plus --ptpython'
-    "django_extensions"
+    "django_extensions",
+
+    # pip install django-debug-toolbar
+    "debug_toolbar"
 ]
 
 MIDDLEWARE = [
@@ -91,9 +95,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
     # from django-livereload server
     'livereload.middleware.LiveReloadScript',
+
+    # from django-debug-toolbar
+    "debug_toolbar.middleware.DebugToolbarMiddleware"
 ]
+
+
+SHOW_TOOLBAR_CALLBACK = True
 
 ROOT_URLCONF = 'application.urls'
 
@@ -141,9 +152,9 @@ DATABASES = {
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # },
     # django_web_app_postgresql_db
-    "django_web_app_auth_db": {
+    Project.State.PostgreSQL.DATABASE_AUTH: {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "django_web_app_auth_db",
+        "NAME": Project.State.PostgreSQL.DATABASE_AUTH,
         "USER": Project.State.PostgreSQL.USERNAME,
         "PASSWORD": Project.State.PostgreSQL.PASSWORD,
         "HOST": Project.State.PostgreSQL.HOST,
@@ -168,13 +179,23 @@ DATABASES = {
             "password": Project.State.MongoDB.PASSWORD,
             "authSource": Project.State.MongoDB.AUTHSOURCE
         }
+    },
+    Project.State.MySQL.DATABASE_DJANGO: {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": Project.State.MySQL.DATABASE_DJANGO,
+        "USER": Project.State.MySQL.USERNAME,
+        "PASSWORD": Project.State.MySQL.PASSWORD,
+        "HOST": Project.State.MySQL.HOST,
+        "PORT": Project.State.MySQL.PORT
     }
 }
 
+
 DATABASE_ROUTERS = [
     "routers.database_routers.AuthRouter",
-    'routers.database_routers.PostgresqlRouter',
-    'routers.database_routers.MongodbRouter',
+    "routers.database_routers.PostgresqlRouter",
+    "routers.database_routers.MongodbRouter",
+    "routers.database_routers.MySQLRouter",
 ]
 
 
@@ -302,3 +323,10 @@ LOGGING = {
     },
     "loggers": {"django": {"handlers": ["console"]}},
 }
+
+# for debug-toolbar
+INTERNAL_IPS = [
+    "*",
+    # "127.0.0.1",
+    # ...
+]

@@ -12,6 +12,7 @@ commonmark==0.9.1
 ConfigArgParse==1.5.3
 dataclasses==0.8
 Django==3.0.1
+django-debug-toolbar==3.2.4
 django-extensions==3.1.5
 django-filter==21.1
 django-livereload-server==0.4
@@ -42,6 +43,7 @@ Markdown==3.3.6
 MarkupSafe==2.0.1
 mccabe==0.6.1
 msgpack==1.0.3
+mysqlclient==2.1.0
 packaging==21.3
 parso==0.8.3
 platformdirs==2.4.0

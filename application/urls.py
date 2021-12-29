@@ -23,6 +23,10 @@ from . import views
 urlpatterns = [
     # /
     path("", views.index, name="index"),
+
+    # /__debug__
+    path('__debug__/', include('debug_toolbar.urls')),
+
     # /routes
     path("routes", views.application_routes, name="application_routes"),
     # /routes/json
@@ -45,6 +49,7 @@ urlpatterns = [
     path('telegram/', include("telegram.urls")),
     # /learning
     path('learning/', include("learning.urls")),
+    path('analytics/', include("analytics.urls")),
 ]
 
 handler404 = "learning.views.learning_custom_404_page"

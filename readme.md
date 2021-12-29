@@ -31,6 +31,31 @@ python manage.py createsuperuser --email just.python.mail.test@gmail.com --usern
 ```
 
 
+# Pytest on this project
+
+## test a single file using pytest
+
+testing the entire file `test_management_commands_manage_api.py`
+```shell
+pytest -vv -x -rP -n 2 api/tests/test_management_commands_manage_api.py
+```
+args:
+- `-vv` is for extra verbose
+- `-x` to stop after first fail
+- `-rP` for capturin standard output from the test func
+- `-n` number of workers (making the tests run in parallel) (you need `pytest-xdist` for this; `pip install pytest-xdist`)
+
+## test a single function using pytest
+
+testing only the function `test_manage_api` from the `test_management_commands_manage_api.py` file
+```shell
+pytest -vv -x -rP -n 2 api/tests/test_management_commands_manage_api.py::test_manage_api
+```
+
+you can use `pytest -k test_manage_api`, but this is not good, because it searches in the entire repo for the function and takes some time
+
+with the previous example pytest `jumps` only to the specified function
+
 
 # create django project inside venv without creating extra directories
 ```shell
@@ -42,6 +67,25 @@ note: `.` is very important
 # disclaimer
 ofcourse there are a lot of quick snippet for solvig problems that i could have pasted here, but i was too lazy for that because i had a deadline, so enjoy a short readme
 
+
+# Database Migrations
+
+## make migrations only for a specific app
+```shell
+❱  ./manage.py makemigrations analytics
+Migrations for 'analytics':
+  analytics/migrations/0002_auto_20211229_1553.py
+    - Rename table for todosvisitcount to todos_route_visit_counts
+```
+
+## migrate only for a specific app and database
+```shell
+❱  ./manage.py migrate analytics --database=django_web_app_mysql_db
+Operations to perform:
+  Apply all migrations: analytics
+Running migrations:
+  Applying analytics.0002_auto_20211229_1553... OK
+```
 
 
 # Documentation for django
@@ -110,9 +154,9 @@ references:
 - https://testdriven.io/blog/django-stripe-tutorial/
 - https://stackoverflow.com/questions/26080303/improperlyconfigured-settings-databases-is-improperly-configured-please-supply
 - https://sydjameer.medium.com/how-to-expose-your-multiple-database-for-admin-site-in-django-50a7870d14ab
--
--
--
+- https://stackoverflow.com/questions/27573358/how-to-get-pytest-django-to-only-run-tests-for-a-single-app
+- https://django-configurations.readthedocs.io/en/stable/
+- https://github.com/phpdude/docker-django-webpack-skeleton
 -
 -
 -

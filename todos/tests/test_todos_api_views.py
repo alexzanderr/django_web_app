@@ -9,27 +9,6 @@
 from django.test.client import Client as DjangoClient
 import json
 
-
-def f():
-    if True:
-        return 1
-    elif False:
-        return 2
-
-    return 3
-
-
-
-def test_f1():
-    assert f() == 1
-
-def test_f2():
-    assert f() == 2
-
-def test_f3():
-    assert f() == 3
-
-
 def test_todos_api_index_view(client: DjangoClient):
     response = client.get("/todos/api/")
     # print(response)

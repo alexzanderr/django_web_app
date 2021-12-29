@@ -101,3 +101,33 @@ class MongodbRouter:
         if app_label in self.route_app_labels:
             return db == self.db_name
         return None
+
+
+class MySQLRouter:
+    # this is the key from DATABASES dict from settings.py
+    db_name = "django_web_app_mysql_db"
+    route_app_labels = {}
+
+    def db_for_read(self, model, **hints):
+        database = getattr(model, '_database', None)
+        if database:
+            return database
+
+        if model._meta.app_label in self.route_app_labels:
+            return self.db_name
+        return None
+
+    def db_for_write(self, model, **hints):
+        database = getattr(model, '_database', None)
+        if database:
+            return database
+
+        if model._meta.app_label in self.route_app_labels:
+            return self.db_name
+        return None
+
+    def allow_migrate(self, db, app_label, model_name=None, **hints):
+
+        if app_label in self.route_app_labels:
+            return db == self.db_name
+        return None

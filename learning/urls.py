@@ -20,5 +20,8 @@ urlpatterns = [
     # /learning/ln
     path("ln", views.learning_ln, name="learning_ln"),
 
+    # /viewcount
+    path("viewcount", views.PageViewCounter.as_view()),
+
 
 ]

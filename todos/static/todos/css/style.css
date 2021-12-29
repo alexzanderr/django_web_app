@@ -99,3 +99,9 @@ li {
 	padding: 5px;
 	margin: 5px;
 }
+
+
+
+.total_visits {
+	color: var(--one-dark-green);
+}
