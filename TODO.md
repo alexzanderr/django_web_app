@@ -15,7 +15,7 @@
 - [x] try djongo, just like mongo alchemy - https://www.djongomapper.com/get-started/
 - [x] create tmux session for this project
 - [ ] add generate random password button in JS for register UI
-- [ ] add view password checkbox for register
+- [x] add view password checkbox for register
 - [x] how to test django mini apps individually? because there is a tests file or folder inside every app; with pytest you create a tests folder and pytest will take care of the rest
 - [ ] add pytest-factoryboy and faker for databases
 - [ ] test frontend with selenium (here we need a person to watch the page changes)
@@ -26,11 +26,11 @@
 - [ ] add stripe to django, at least for testing
 - [ ] add celery to django
 - [x] add custom 404 beautiful page
-- [ ] change text selection on frontend
+- [x] change text selection on frontend
 - [x] add livereload to tmux session
 - [ ] try Sass css framework
 - [ ] add check availability after typing a username in real time with async
-- [ ] add progress bar when making a reqest in the UI
+- [ ] add progress bar when making a reqest in the UI (https://www.codegrepper.com/code-examples/javascript/xhr+response+progress+bar)
 - [ ] migrate from mongo client to djongo models
 - [ ] add remote databases (mongo in atlas, postgres in cloud si mysql in cloud) cand dai clone la django repo plus settings sa stii ca dai clone la repo pentru remote
 - [ ] add cursor progress on the top of the page
@@ -127,4 +127,10 @@ To fix this make sure to import all your view modules, database models, and ever
 - [ ] ModuleNotFoundError: No module named 'app' when testing on github workflows, maybe because in stupid ubuntu you cant use from `module_name`.something import `else`, tin minte asta din experienta mea cu aplicatiile mele, cand ai import from root package pur si simplu nu merge
 - [ ] add slack notification or something else notification when a pull request is triggered
 - [ ] change directories structure (move everything from /src to root)
+- [ ] try this https://dbdiagram.io/d
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
 - [ ]

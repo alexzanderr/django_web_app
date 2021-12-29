@@ -108,8 +108,8 @@ references:
 - https://www.youtube.com/watch?v=4zbehnz-8QU (de pus minutul 9 in django exceptions)
 - https://stackoverflow.com/questions/17066074/modelserializer-using-model-property
 - https://testdriven.io/blog/django-stripe-tutorial/
--
--
+- https://stackoverflow.com/questions/26080303/improperlyconfigured-settings-databases-is-improperly-configured-please-supply
+- https://sydjameer.medium.com/how-to-expose-your-multiple-database-for-admin-site-in-django-50a7870d14ab
 -
 -
 -

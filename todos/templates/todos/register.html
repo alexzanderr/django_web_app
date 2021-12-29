@@ -17,10 +17,10 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
 
 	{# todos/static/css/style.css #}
-	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'todos/css/style.css' %}">
 
 	{# todos/static/css/register.css #}
-	<link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'todos/css/register.css' %}">
 </head>
 
 <body>
@@ -185,9 +185,8 @@
 					alert('some error occured. cant update UI')
 				}
 			})
-
-
 		}
+
 	</script>
 
 
@@ -216,9 +215,45 @@
 			</div> -->
 
 			<div class="form-control">
-				<label for="username">[Password]</label>
+				<label for="password">[Password]</label>
 				<input type="password" placeholder="1238g12hvb12y41!@!29_!$!@$!@#" id="password" name="password" required>
 				<small id="password_small">Error message</small>
+			</div>
+
+			<script>
+				// execute js at page load
+				document.addEventListener("DOMContentLoaded", function() {
+					console.log("hello from page load")
+					const show_password_input = $("#show_password_input")
+					if (show_password_input.is(":checked")) {
+						// if the user reloaded the page with checkbox checked
+						// uncheck the show password after loading page
+						show_password_input.prop("checked", false)
+						console.log("was unchecked")
+					}
+				});
+				function show_password() {
+					// https://stackoverflow.com/questions/1544317/change-type-of-input-field-with-jquery
+					const password_input = document.getElementById("password")
+					console.log(password_input.type)
+					if (password_input.type === "password" ) {
+						password_input.type = "text"
+						console.log("visible")
+
+					} else {
+						password_input.type = "password"
+						console.log("invisible")
+
+					}
+				}
+
+				const show_pass = document.getElementById("show_password_input")
+				console.log(show_pass)
+				// .onclick = () => show_password()
+			</script>
+			<div class="form-control">
+				<input type="checkbox" name="show_password" id="show_password_input" onclick="show_password()">
+				<label for="show_password">[Show Password]</label>
 			</div>
 
 			<div class="form-control">
@@ -229,6 +264,7 @@
 				<small id="password_check_small">Error message</small>
 			</div>
 
+
 			<div class="form-control">
 				<input name="remember" type="checkbox" id="remember-me">
 				<span class="remember-me-span">
@@ -236,6 +272,7 @@
 				</span>
 			</div>
 
+			<!-- https://css-tricks.com/using-css-cursors/ -->
 			<button id="create-account-button" onclick="create_new_account()">
 				Create New Account
 			</button>
@@ -244,3 +281,4 @@
 </body>
 
 </html>
+

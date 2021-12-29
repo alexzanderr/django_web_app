@@ -39,6 +39,18 @@
     filter: invert(75%) sepia(11%) saturate(1272%) hue-rotate(18deg) brightness(94%) contrast(90%);
 }
 
+/* indentul trebuie sa fie corect */
+::-moz-selection { /* Code for Firefox */
+    color: #282c34;
+    background: #e06575;
+}
+
+::selection {
+    /* not working with var ?? */
+    color: #282c34;
+    background: #e06575
+}
+
 body {
 	/*background-color: #2b2a2a;*/
     background-color: #282c34;
@@ -47,6 +59,7 @@ body {
     color: var(--global-font-color);
 	font-family: var(--global-font);
 	font-size: var(--global-font-size);
+
 }
 
 .text-color {

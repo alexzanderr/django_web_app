@@ -144,4 +144,10 @@ body {
 	border-color: var(--one-dark-blue);
 }
 
+
+/*https://css-tricks.com/using-css-cursors/*/
+#create-account-button:hover {
+	cursor: pointer;
+}
+
 /* TODO make the button red when data is invalid */
