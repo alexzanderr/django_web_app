@@ -8,6 +8,9 @@ from views_enhanced import _patch
 from views_enhanced import _delete
 from views_enhanced import _get_post
 from views_enhanced import _get
+from views_enhanced import json_api_response_decorator
+
+
 from credentials import Configuration
 from string import ascii_letters, digits
 from random import choice, randint
@@ -305,3 +308,11 @@ def api_todos_models_register_tokens_new(request):
     # print(token[0].expiration_timestamp)
     data = RegisterTokenJSONSerializer(new_token).data
     return json_api_response({"code": 200, "token": data})
+
+
+
+@api_view(_get)
+@permission_classes(_allow_any)
+@json_api_response_decorator
+def test_api_decorators(r):
+    return {"data": 123}, 404

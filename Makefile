@@ -41,3 +41,5 @@ clean:
 	rm -rfv .pytest_cache
 
 
+mypy:
+	mypy --install-types .
