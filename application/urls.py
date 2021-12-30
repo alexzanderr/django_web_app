@@ -53,6 +53,9 @@ urlpatterns = [
     path('learning/', include("learning.urls")),
     path('analytics/', include("analytics.urls")),
     path('sentry-debug/', trigger_error),
+
+    path("test-decorator/", views.test_decorator),
+    path("test-decorator2/", views.test_decorator2),
 ]
 
 handler404 = "learning.views.learning_custom_404_page"

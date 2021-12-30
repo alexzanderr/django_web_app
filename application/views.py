@@ -11,6 +11,7 @@ from django_extensions.management.commands.show_urls import Command as ShowUrlsC
 from django.urls import get_resolver
 
 from views_enhanced import json_response
+from views_enhanced import json_response_decorator
 # /
 def index(request):
 	return application_routes(request)
@@ -80,3 +81,13 @@ def context_menu_index(request):
 	return render(
 		request,
 		"context_menu.html")
+
+
+@json_response_decorator
+def test_decorator(request):
+	return {"data": 123}, 403
+
+
+@json_response_decorator
+def test_decorator2(request):
+	return {"data": 123}
