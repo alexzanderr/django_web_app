@@ -144,4 +144,10 @@ body {
 	border-color: var(--one-dark-blue);
 }
 
+
+.form button:hover {
+	/* this disables the uggly default outline selector of firefox */
+	cursor: hover;
+}
+
 /* TODO make the button red when data is invalid */

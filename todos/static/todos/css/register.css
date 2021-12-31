@@ -144,10 +144,16 @@ body {
 	border-color: var(--one-dark-blue);
 }
 
-
 /*https://css-tricks.com/using-css-cursors/*/
-#create-account-button:hover {
+button:hover {
+	/* this disables the uggly default outline selector of firefox */
 	cursor: pointer;
 }
+
+.form #random_password_button {
+	width: 110px;
+}
+
+
 
 /* TODO make the button red when data is invalid */

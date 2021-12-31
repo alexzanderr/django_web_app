@@ -14,7 +14,7 @@
 - [x] add rich traceback to django runserver
 - [x] try djongo, just like mongo alchemy - https://www.djongomapper.com/get-started/
 - [x] create tmux session for this project
-- [ ] add generate random password button in JS for register UI
+- [x] add generate random password button in JS for register UI
 - [x] add view password checkbox for register
 - [x] how to test django mini apps individually? because there is a tests file or folder inside every app; with pytest you create a tests folder and pytest will take care of the rest
 - [ ] add pytest-factoryboy and faker for databases
@@ -55,6 +55,8 @@
 - [ ]
 - [ ]
 - [ ]
+- [ ] add async loading animation until the requested data is processed from database
+
 
 # TODOS from old flask project
 these todos can also be applied for django as they are the same in essence, a web application

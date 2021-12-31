@@ -27,9 +27,6 @@
 
 <body>
 	{% csrf_token %}
-
-
-
 	<div class="container">
 		<div class="header">
 			<h2>Create Account</h2>
@@ -74,15 +71,24 @@
 				function show_password() {
 					// https://stackoverflow.com/questions/1544317/change-type-of-input-field-with-jquery
 					const password_input = document.getElementById("password")
+					const password_check_input = document.getElementById("password_check")
+
 					console.log(password_input.type)
 					if (password_input.type === "password" ) {
+						if (password_check_input.type !== "password") {
+							alert("password and password check are not synchronized")
+						}
 						password_input.type = "text"
+						password_check_input.type = "text"
 						console.log("visible")
 
 					} else {
+						if (password_check_input.type !== "text") {
+							alert("password and password check are not synchronized")
+						}
 						password_input.type = "password"
+						password_check_input.type = "password"
 						console.log("invisible")
-
 					}
 				}
 
@@ -91,16 +97,22 @@
 				// .onclick = () => show_password()
 			</script>
 			<div class="form-control">
-				<input type="checkbox" name="show_password" id="show_password_input" onclick="show_password()">
-				<label for="show_password">[Show Password]</label>
-			</div>
-
-			<div class="form-control">
 				<label for="username">[Password](Again)</label>
 				<input type="password" placeholder="1238g12hvb12y41!@!29_!$!@$!@#" id="password_check" name="password-check"
 					required>
 				<span class="password-hint"> (make sure its the same, buddy:)</span>
 				<small id="password_check_small">Error message</small>
+			</div>
+
+			<div class="form-control">
+				<input type="checkbox" name="show_password" id="show_password_input" onclick="show_password()">
+				<label for="show_password">[Show Password]</label>
+			</div>
+
+			<div>
+				<button id="random_password_button" onclick="generate_random_password()">
+					generate random password
+				</button>
 			</div>
 
 

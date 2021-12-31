@@ -194,3 +194,30 @@ function check_username_real_time() {
         }
     })
 }
+
+function generate_random_password() {
+    const random_password_button = $('#random_password_button')
+    const password_input = $('#password')
+    const password_check_input = $("#password_check")
+
+
+    $.ajax({
+        type: "GET",
+        headers: { 'X-CSRFToken': csrftoken },
+        url: "/todos/api/register/random/password",
+        // if this is wrong, then we do something about it
+        // url: "/todos/api/mongo/ad",
+        success: function (json_response) {
+            // here i should receive the oid from database
+            console.log(json_response)
+
+            const _random_password = json_response["random_password"]
+            console.log(_random_password)
+            password_input.val(_random_password)
+            password_check_input.val(_random_password)
+        },
+        error: function () {
+            alert('some error occured. cant update UI')
+        }
+    })
+}

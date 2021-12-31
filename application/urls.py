@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+import debug_toolbar
+
 from . import views
 
 def trigger_error(request):
+    # this is for sentry
     division_by_zero = 1 / 0
     return division_by_zero
 
@@ -27,7 +30,7 @@ urlpatterns = [
     path("", views.index, name="index"),
 
     # /__debug__
-    path('__debug__/', include('debug_toolbar.urls')),
+    path('__debug__/', include(debug_toolbar.urls)),
 
     # /routes
     path("routes", views.application_routes, name="application_routes"),

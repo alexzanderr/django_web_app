@@ -3,7 +3,17 @@
 # from django.shortcuts import render
 from django.views import View
 import re
-from string import ascii_letters, digits
+
+from string import ascii_letters
+from string import ascii_lowercase
+from string import ascii_uppercase
+from string import digits
+from string import punctuation
+from string import printable
+
+
+
+
 from random import choice, randint
 from django.http import HttpResponse
 from django.http import HttpRequest
@@ -22,6 +32,8 @@ from mongo_client import Database
 from mongo_client import ObjectId
 
 from views_enhanced import json_response
+
+
 
 
 @require_http_methods(["GET"])
@@ -318,8 +330,9 @@ class TodosAPIRegisterValidation(View, ValidationUtilities):
             return JsonResponse(results, status=200)
 
 
+# POST /todos/api/register/validation/username
 class TodosAPIRegisterValidationUsername(View, ValidationUtilities):
-    def post(self, request: HttpRequest):
+    def post(self, request: HttpRequest) -> JsonResponse:
         if not request.is_ajax():
             return json_response({
                 "message": "request must be from ajax"
@@ -328,3 +341,50 @@ class TodosAPIRegisterValidationUsername(View, ValidationUtilities):
         json_from_request: dict = json.loads(request.body)  # type: ignore
         username = json_from_request["username"]
         return json_response({"username": self.validate_username(username)})
+
+
+from typing import Optional
+
+
+
+# GET /todos/api/register/random/password
+class TodosAPIRegisterRandomPassword(View, ValidationUtilities):
+    __punctutation = punctuation.replace("/", "") \
+        .replace("\\", "") \
+        .replace(":", "") \
+        .replace(";", "")
+
+    def generate_random_password(
+        self,
+    ):
+        # ascii lower
+        _ascii_lower = [choice(ascii_lowercase) for _ in range(10)]
+        # ascii upper
+        _ascii_upper = [choice(ascii_uppercase) for _ in range(10)]
+        # digits
+        _digits = [choice(digits) for _ in range(10)]
+        # punctuation
+        _punctuation = [choice(self.__punctutation) for _ in range(10)]
+        _random_password = ""
+        for __lower, __upper, __digits, __punct in zip(_ascii_lower, _ascii_upper, _digits, _punctuation):
+            _random_password += __lower + __upper + __digits + __punct
+
+        return _random_password
+
+    # TODO, add method decorator for json response
+    def get(self, request: HttpRequest) -> JsonResponse:
+        if not request.is_ajax():
+            return json_response({
+                "message": "request must be from ajax"
+                }, 403)
+
+        _password = self.generate_random_password()
+        while not self.validate_password(_password):
+            _password = self.generate_random_password()
+
+
+        return json_response({
+            "random_password": _password
+        })
+
+
