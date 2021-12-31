@@ -351,8 +351,9 @@ from typing import Optional
 class TodosAPIRegisterRandomPassword(View, ValidationUtilities):
     __punctutation = punctuation.replace("/", "") \
         .replace("\\", "") \
-        .replace(":", "") \
-        .replace(";", "")
+        .replace(":", "")  \
+        .replace(";", "")  \
+        .replace("\"", "")
 
     def generate_random_password(
         self,

@@ -54,7 +54,7 @@ class PersonsManager(mondels.Manager):
 
 
 class Person(mondels.Model):
-    _database = Configuration.Development.MongoDB.DATABASE_DJANGO
+    _database = Configuration.Development.MongoDB.Cloud.DATABASE
     """
         >>> Person.objects.using("django_web_app_mongo_db")
         <QuerySet []>

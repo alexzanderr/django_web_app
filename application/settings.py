@@ -145,56 +145,104 @@ WSGI_APPLICATION = 'application.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {},
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # },
-    # django_web_app_postgresql_db
-    Project.State.PostgreSQL.DATABASE_AUTH: {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": Project.State.PostgreSQL.DATABASE_AUTH,
-        "USER": Project.State.PostgreSQL.USERNAME,
-        "PASSWORD": Project.State.PostgreSQL.PASSWORD,
-        "HOST": Project.State.PostgreSQL.HOST,
-        "PORT": Project.State.PostgreSQL.PORT
-    },
-    Project.State.PostgreSQL.DATABASE_DJANGO: {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": Project.State.PostgreSQL.DATABASE_DJANGO,
-        "USER": Project.State.PostgreSQL.USERNAME,
-        "PASSWORD": Project.State.PostgreSQL.PASSWORD,
-        "HOST": Project.State.PostgreSQL.HOST,
-        "PORT": Project.State.PostgreSQL.PORT
-    },
-    # django_web_app_mongo_db
-    Project.State.MongoDB.DATABASE_DJANGO: {
-        "ENGINE": "djongo",
-        "NAME": Project.State.MongoDB.DATABASE_DJANGO,
-        "CLIENT": {
-            "host": Project.State.MongoDB.HOST,
-            "port": Project.State.MongoDB.PORT,
-            "username": Project.State.MongoDB.USERNAME,
-            "password": Project.State.MongoDB.PASSWORD,
-            "authSource": Project.State.MongoDB.AUTHSOURCE
+if Project.State.REMOTE_DATABASES:
+    DATABASES = {
+        "default": {},
+        # 'default': {
+        #     'ENGINE': 'django.db.backends.sqlite3',
+        #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # },
+        # django_web_app_postgresql_db
+        Project.State.PostgreSQL.DATABASE_AUTH: {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": Project.State.PostgreSQL.DATABASE_AUTH,
+            "USER": Project.State.PostgreSQL.USERNAME,
+            "PASSWORD": Project.State.PostgreSQL.PASSWORD,
+            "HOST": Project.State.PostgreSQL.HOST,
+            "PORT": Project.State.PostgreSQL.PORT
+        },
+        Project.State.PostgreSQL.DATABASE_DJANGO: {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": Project.State.PostgreSQL.DATABASE_DJANGO,
+            "USER": Project.State.PostgreSQL.USERNAME,
+            "PASSWORD": Project.State.PostgreSQL.PASSWORD,
+            "HOST": Project.State.PostgreSQL.HOST,
+            "PORT": Project.State.PostgreSQL.PORT
+        },
+        # django_web_app_mongo_db_remote
+        Project.State.MongoDB.Cloud.DATABASE: {
+            "ENGINE": "djongo",
+            "NAME": Project.State.MongoDB.Cloud.DATABASE,
+            "CLIENT": {
+                # "host": Project.State.MongoDB.HOST,
+                "host": Project.State.MongoDB.Cloud.CONNECTION_STRING,
+                # "port": Project.State.MongoDB.PORT,
+                # "username": Project.State.MongoDB.USERNAME,
+                # "password": Project.State.MongoDB.PASSWORD,
+                # "authSource": Project.State.MongoDB.AUTHSOURCE
+            }
+        },
+        Project.State.MySQL.DATABASE_DJANGO: {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": Project.State.MySQL.DATABASE_DJANGO,
+            "USER": Project.State.MySQL.USERNAME,
+            "PASSWORD": Project.State.MySQL.PASSWORD,
+            "HOST": Project.State.MySQL.HOST,
+            "PORT": Project.State.MySQL.PORT
         }
-    },
-    Project.State.MySQL.DATABASE_DJANGO: {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": Project.State.MySQL.DATABASE_DJANGO,
-        "USER": Project.State.MySQL.USERNAME,
-        "PASSWORD": Project.State.MySQL.PASSWORD,
-        "HOST": Project.State.MySQL.HOST,
-        "PORT": Project.State.MySQL.PORT
     }
-}
+else:
+    DATABASES = {
+        "default": {},
+        # 'default': {
+        #     'ENGINE': 'django.db.backends.sqlite3',
+        #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # },
+        # django_web_app_postgresql_db
+        Project.State.PostgreSQL.DATABASE_AUTH: {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": Project.State.PostgreSQL.DATABASE_AUTH,
+            "USER": Project.State.PostgreSQL.USERNAME,
+            "PASSWORD": Project.State.PostgreSQL.PASSWORD,
+            "HOST": Project.State.PostgreSQL.HOST,
+            "PORT": Project.State.PostgreSQL.PORT
+        },
+        Project.State.PostgreSQL.DATABASE_DJANGO: {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": Project.State.PostgreSQL.DATABASE_DJANGO,
+            "USER": Project.State.PostgreSQL.USERNAME,
+            "PASSWORD": Project.State.PostgreSQL.PASSWORD,
+            "HOST": Project.State.PostgreSQL.HOST,
+            "PORT": Project.State.PostgreSQL.PORT
+        },
+        # django_web_app_mongo_db
+        Project.State.MongoDB.DATABASE_DJANGO: {
+            "ENGINE": "djongo",
+            "NAME": Project.State.MongoDB.DATABASE_DJANGO,
+            "CLIENT": {
+                "host": Project.State.MongoDB.HOST,
+                "port": Project.State.MongoDB.PORT,
+                "username": Project.State.MongoDB.USERNAME,
+                "password": Project.State.MongoDB.PASSWORD,
+                "authSource": Project.State.MongoDB.AUTHSOURCE
+            }
+        },
+        Project.State.MySQL.DATABASE_DJANGO: {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": Project.State.MySQL.DATABASE_DJANGO,
+            "USER": Project.State.MySQL.USERNAME,
+            "PASSWORD": Project.State.MySQL.PASSWORD,
+            "HOST": Project.State.MySQL.HOST,
+            "PORT": Project.State.MySQL.PORT
+        }
+    }
 
 
 DATABASE_ROUTERS = [
     "routers.database_routers.AuthRouter",
     "routers.database_routers.PostgresqlRouter",
     "routers.database_routers.MongodbRouter",
+    "routers.database_routers.RemoteMongodbRouter",
     "routers.database_routers.MySQLRouter",
 ]
 
