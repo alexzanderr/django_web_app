@@ -72,6 +72,8 @@ INSTALLED_APPS = [
     "telegram",
     "learning.apps.LearningConfig",
     "analytics.apps.AnalyticsConfig",
+    "postgres_remote",
+    "mysql_remote",
 
     # pip install djangorestframework
     "rest_framework",
@@ -84,7 +86,7 @@ INSTALLED_APPS = [
     "django_extensions",
 
     # pip install django-debug-toolbar
-    "debug_toolbar"
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -161,13 +163,12 @@ if Project.State.REMOTE_DATABASES:
             "HOST": Project.State.PostgreSQL.HOST,
             "PORT": Project.State.PostgreSQL.PORT
         },
-        Project.State.PostgreSQL.DATABASE_DJANGO: {
+        Project.State.PostgreSQL.Cloud.DATABASE: {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": Project.State.PostgreSQL.DATABASE_DJANGO,
-            "USER": Project.State.PostgreSQL.USERNAME,
-            "PASSWORD": Project.State.PostgreSQL.PASSWORD,
-            "HOST": Project.State.PostgreSQL.HOST,
-            "PORT": Project.State.PostgreSQL.PORT
+            "NAME": Project.State.PostgreSQL.Cloud.DATABASE,
+            "USER": Project.State.PostgreSQL.Cloud.USERNAME,
+            "PASSWORD": Project.State.PostgreSQL.Cloud.PASSWORD,
+            "HOST": Project.State.PostgreSQL.Cloud.HOST,
         },
         # django_web_app_mongo_db_remote
         Project.State.MongoDB.Cloud.DATABASE: {
@@ -182,13 +183,13 @@ if Project.State.REMOTE_DATABASES:
                 # "authSource": Project.State.MongoDB.AUTHSOURCE
             }
         },
-        Project.State.MySQL.DATABASE_DJANGO: {
+        Project.State.MySQL.Cloud.DATABASE: {
             "ENGINE": "django.db.backends.mysql",
-            "NAME": Project.State.MySQL.DATABASE_DJANGO,
-            "USER": Project.State.MySQL.USERNAME,
-            "PASSWORD": Project.State.MySQL.PASSWORD,
-            "HOST": Project.State.MySQL.HOST,
-            "PORT": Project.State.MySQL.PORT
+            "NAME": Project.State.MySQL.Cloud.DATABASE,
+            "USER": Project.State.MySQL.Cloud.USERNAME,
+            "PASSWORD": Project.State.MySQL.Cloud.PASSWORD,
+            "HOST": Project.State.MySQL.Cloud.HOST,
+            "PORT": Project.State.MySQL.Cloud.PORT
         }
     }
 else:
@@ -241,9 +242,11 @@ else:
 DATABASE_ROUTERS = [
     "routers.database_routers.AuthRouter",
     "routers.database_routers.PostgresqlRouter",
+    "routers.database_routers.RemotePostgresqlRouter",
     "routers.database_routers.MongodbRouter",
     "routers.database_routers.RemoteMongodbRouter",
     "routers.database_routers.MySQLRouter",
+    "routers.database_routers.RemoteMySQLRouter",
 ]
 
 

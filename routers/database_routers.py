@@ -73,6 +73,29 @@ class PostgresqlRouter:
         return None
 
 
+class RemotePostgresqlRouter:
+    db_name = "tcbaekqa"
+    # this is used to tell django which models to use from which app (made by programmer or installed)
+    route_app_labels = {
+        "postgres_remote"
+    }
+
+    def db_for_read(self, model, **hints):
+        if model._meta.app_label in self.route_app_labels:
+            return self.db_name
+        return None
+
+    def db_for_write(self, model, **hints):
+        if model._meta.app_label in self.route_app_labels:
+            return self.db_name
+        return None
+
+    def allow_migrate(self, db, app_label, model_name=None, **hints):
+        if app_label in self.route_app_labels:
+            return db == self.db_name
+        return None
+
+
 class MongodbRouter:
     # this is the key from DATABASES dict from settings.py
     db_name = "django_web_app_mongo_db"
@@ -137,6 +160,40 @@ class MySQLRouter:
     db_name = "django_web_app_mysql_db"
     route_app_labels = {}
 
+    def db_for_read(self, model, **hints):
+        database = getattr(model, '_database', None)
+        if database:
+            return database
+
+        if model._meta.app_label in self.route_app_labels:
+            return self.db_name
+        return None
+
+    def db_for_write(self, model, **hints):
+        database = getattr(model, '_database', None)
+        if database:
+            return database
+
+        if model._meta.app_label in self.route_app_labels:
+            return self.db_name
+        return None
+
+    def allow_migrate(self, db, app_label, model_name=None, **hints):
+
+        if app_label in self.route_app_labels:
+            return db == self.db_name
+        return None
+
+
+class RemoteMySQLRouter:
+    # this is the key from DATABASES dict from settings.py
+    db_name = "defaultdb"
+    route_app_labels = {
+        "mysql_remote"
+    }
+
+
+    x = 123
     def db_for_read(self, model, **hints):
         database = getattr(model, '_database', None)
         if database:
