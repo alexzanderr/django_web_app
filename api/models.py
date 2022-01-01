@@ -1,7 +1,9 @@
 
 
 from django.db import models
-from credentials import Configuration
+
+from utilities import _get_conf
+Configuration = _get_conf()
 
 
 

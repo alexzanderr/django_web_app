@@ -30,7 +30,8 @@ class Article(models.Model):
 
 
 from djongo import models as mondels
-from credentials import Configuration
+from utilities import _get_conf
+Configuration = _get_conf()
 
 class PersonsManager(mondels.Manager):
     def get_queryset(self):

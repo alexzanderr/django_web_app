@@ -1,6 +1,8 @@
 
 
-from credentials import Configuration
+from utilities import _get_conf
+Configuration = _get_conf()
+
 from pymongo import MongoClient
 from pymongo.errors import CollectionInvalid
 from pymongo.errors import InvalidOperation

@@ -12,7 +12,9 @@ from views_decorators import json_response_decorator
 from views_decorators import json_api_response_decorator
 
 
-from credentials import Configuration
+from utilities import _get_conf
+Configuration = _get_conf()
+
 from string import ascii_letters, digits
 from random import choice, randint
 from mongo_client import Database

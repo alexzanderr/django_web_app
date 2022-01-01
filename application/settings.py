@@ -12,10 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 # use this for your config
 
-try:
-    from credentials import Configuration
-except (ModuleNotFoundError, ImportError):
-    from remote_credentials import Configuration
+from utilities import _get_conf
+Configuration = _get_conf()
 
 
 from pathlib import Path

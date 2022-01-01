@@ -1,7 +1,8 @@
 
 from datetime import datetime
 from djongo import models as mondels
-from credentials import Configuration
+from utilities import _get_conf
+Configuration = _get_conf()
 
 from django.contrib import admin
 
