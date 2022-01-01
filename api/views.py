@@ -59,6 +59,7 @@ def api_index(request: HttpRequest):
 # GET /api/todos
 @api_view(["GET"])
 @permission_classes(_allow_any)
+@json_response_decorator
 def api_todos(request: HttpRequest):
     # lists todos
     todo_list = []
@@ -68,9 +69,9 @@ def api_todos(request: HttpRequest):
         print(todo)
         todo_list.append(todo)
 
-    return json_response({
+    return {
         "todos": todo_list
-    })
+    }
 
 
 # GET /api/postgres/tokens

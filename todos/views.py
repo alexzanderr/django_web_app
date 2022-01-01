@@ -16,6 +16,7 @@ from mongo_client import Database
 from application import models
 
 from views_enhanced import TemplateEngine
+from views_decorators import json_response_decorator
 
 
 from datetime import datetime
@@ -67,8 +68,9 @@ def todos_extender(request):
 
 # GET /todos/json
 @require_http_methods(["GET"])
+@json_response_decorator
 def todos_json(request: HttpRequest):
-    return json_response({"message": "hello andrew"})
+    return {"message": "hello andrew"}
 
 
 
