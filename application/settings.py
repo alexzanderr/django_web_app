@@ -10,9 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-# from credentials import Credentials
-from credentials import Configuration# use this for your config
-# from example_credentials import Configuration
+# use this for your config
+
+try:
+    from credentials import Configuration
+except (ModuleNotFoundError, ImportError):
+    from remote_credentials import Configuration
+
+
 from pathlib import Path
 import json
 import os
