@@ -41,4 +41,5 @@ urlpatterns = [
     path("todos/mongo/models/register_tokens/new", views.api_todos_models_register_tokens_new),
 
     path("test-decorator/", views.test_api_decorators),
+    path("json-decorator-class/", views.TestJsonResponseDecorator.as_view())
 ]

@@ -32,16 +32,15 @@
 - [x] add check availability after typing a username in real time with async
 - [ ] add progress bar when making a reqest in the UI (https://www.codegrepper.com/code-examples/javascript/xhr+response+progress+bar)
 - [x] migrate from mongo client to djongo models
-- [ ] add remote databases (mongo in atlas, postgres in cloud si mysql in cloud) cand dai clone la django repo plus settings sa stii ca dai clone la repo pentru remote
-- [ ] add cursor progress on the top of the page
-- [ ] check if this is deleted https://dpaste.com/DSFY8Z2QL
+- [x] add remote databases (mongo in atlas, postgres in cloud si mysql in cloud) cand dai clone la django repo plus settings sa stii ca dai clone la repo pentru remote
+- [ ] add scroll progressbar on the top of the page - to see how much do you have to scroll till the end
 - [ ] remove unused python packages from production like django-debug-toolbar
 - [ ] consider this https://github.com/sobolevn/django-split-settings
 - [ ] try this https://www.codexworld.com/how-to/set-delay-ajax-call-request-settimeout-javascript/, timeout after ajax call
-- [ ]
-- [ ]
-- [ ]
-- [ ]
+- [ ] add rabbitMQ to the project
+- [ ] create a github workflow just only for main branch (to run pytest with python 3.6)
+- [ ] add classes to pytest files
+- [ ] add this (https://plugins.jenkins.io/ansicolor/) to jenkins
 - [ ]
 - [ ]
 - [ ]
@@ -74,7 +73,7 @@ these todos can also be applied for django as they are the same in essence, a we
 - [ ] change code base and use more flask modules
 - [ ] add ipstack API for logging data about incoming IPs
 - [ ] make another client used as broker
-- [ ] deploy using ngnix and guvicorn (WSGI web app)
+- [x] deploy using ngnix and guvicorn (WSGI web app)
 - [ ] implement cookies
 - [ ] implement user login and logout
 - [ ] make more tests
@@ -130,7 +129,7 @@ To fix this make sure to import all your view modules, database models, and ever
 - [ ] add slack notification or something else notification when a pull request is triggered
 - [ ] change directories structure (move everything from /src to root)
 - [ ] try this https://dbdiagram.io/d
-- [ ]
+- [ ] https://stackoverflow.com/questions/49519208/executing-pipfile-scripts
 - [ ]
 - [ ]
 - [ ]

@@ -10,11 +10,6 @@ import pytest
 def test_that_gets_a_fixture(just_give_me_the_client):
 	assert just_give_me_the_client == 1
 
-def test_first_one():
-	print("hello world from test 1")
-	assert 1 == 1
-
-
 @pytest.mark.skip
 def test_to_skip():
 	assert 1 == 1

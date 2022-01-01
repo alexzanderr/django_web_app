@@ -2,13 +2,14 @@
 from rest_framework.authtoken.models import Token
 from .serializers import AuthTokenJSONSerializer
 from .models import AuthToken
-from views_enhanced import json_api_response
-from views_enhanced import json_response
 from views_enhanced import _patch
 from views_enhanced import _delete
 from views_enhanced import _get_post
 from views_enhanced import _get
-from views_enhanced import json_api_response_decorator
+
+# special decorators made by author this project
+from views_decorators import json_response_decorator
+from views_decorators import json_api_response_decorator
 
 
 from credentials import Configuration
@@ -49,11 +50,11 @@ postgres = Configuration.Development.PostgreSQL.DATABASE_DJANGO
 # TODO fix permissions in production
 @api_view(["GET"])
 @permission_classes(_allow_any)
+@json_response_decorator
 def api_index(request: HttpRequest):
-    return JsonResponse({
+    return {
         "message": "rest api its working"
-    }, status=200)
-
+    }
 
 # GET /api/todos
 @api_view(["GET"])
@@ -293,6 +294,7 @@ from datetime import timedelta
 
 @api_view(_get)
 @permission_classes(_allow_any)
+@json_api_response_decorator
 def api_todos_models_register_tokens_new(request):
     new_token = RegisterToken.manager.create(
         token=generate_random_token(),
@@ -307,7 +309,7 @@ def api_todos_models_register_tokens_new(request):
     # print(token[0].token)
     # print(token[0].expiration_timestamp)
     data = RegisterTokenJSONSerializer(new_token).data
-    return json_api_response({"code": 200, "token": data})
+    return {"code": 200, "token": data}
 
 
 
@@ -316,3 +318,16 @@ def api_todos_models_register_tokens_new(request):
 @json_api_response_decorator
 def test_api_decorators(r):
     return {"data": 123}, 404
+
+
+
+# GET /api/json-decorator-class
+class TestJsonResponseDecorator(APIView):
+    permission_classes = _allow_any
+
+    @json_api_response_decorator
+    def get(self, request: HttpRequest):
+        return {
+            "status": 200,
+            "message": "it works"
+        }

@@ -13,7 +13,6 @@ from django.db import transaction
 
 from .models import Club
 
-from views_enhanced import json_response
 
 
 

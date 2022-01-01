@@ -16,7 +16,6 @@ from mongo_client import Database
 from application import models
 
 from views_enhanced import TemplateEngine
-from views_enhanced import json_response
 
 
 from datetime import datetime

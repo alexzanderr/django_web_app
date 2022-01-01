@@ -158,7 +158,7 @@ references:
 - https://django-configurations.readthedocs.io/en/stable/
 - https://github.com/phpdude/docker-django-webpack-skeleton
 - https://stackoverflow.com/questions/4096863/how-to-get-and-set-the-current-web-page-scroll-position
--
+- https://www.sipios.com/blog-tech/monitoring
 -
 -
 -
