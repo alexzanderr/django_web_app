@@ -1,13 +1,16 @@
 
 
-from credentials import Credentials
+from credentials import Configuration
 from pymongo import MongoClient
 from pymongo.errors import CollectionInvalid
 from pymongo.errors import InvalidOperation
 from bson.objectid import ObjectId
 
-mongo_db_client = MongoClient(Credentials.MONGODB_CONNECTION_STRING)
-mongo_db_name = Credentials.MONGODB_DATABASE_DJANGO
+_conn_string = Configuration.Development.MongoDB.MONGODB_CONNECTION_STRING
+_db = Configuration.Development.MongoDB.DATABASE_DJANGO
+
+mongo_db_client = MongoClient(_conn_string)
+mongo_db_name = _db
 
 
 class DatabaseDoesntExist(BaseException):

@@ -6,39 +6,92 @@ class Configuration:
     """
     class Development:
         SECRET_KEY = 'not a real key'
+        REMOTE_DATABASES = False
         DEBUG = True
 
+
         # postgresql uri
-        SQLALCHEMY_DATABASE_URI = "postgresql://username@host/database"
+        SQLALCHEMY_DATABASE_URI = ""
+
+        class MySQL:
+
+            class Cloud:
+                USERNAME = ""
+                PASSWORD = ""
+                HOST = ""
+                PORT = 25060
+                DATABASE = ""
+                SSLMODE = ""
+
+            USERNAME = ""
+            PASSWORD = ""
+            HOST = ""
+            PORT = ""
+            DATABASE_DJANGO = ""
 
         class PostgreSQL:
-            USERNAME = "username"
-            PASSWORD = "password"
-            HOST = "localhost"
-            PORT = "5432"
-            DATABASE_DJANGO = "database"
-            POSTGRESQL_CONNECTION_STRING = f"postgresql://{USERNAME}@{HOST}/{DATABASE_DJANGO}"
 
-        # how to use this key
-        # curl -H "Authorization: Bearer {key}" http://localhost:3000/api/dashboards/home
-        GRAFANA_API_KEY = "very long key for grafana"
+            class Cloud:
+                USERNAME = ""
+                PASSWORD = ""
+                HOST = ""
+                # PORT =
+                DATABASE = ""
+                CONNECTION_STRING = f""
+
+            USERNAME = ""
+            PASSWORD = ""
+            HOST = ""
+            PORT = ""
+            DATABASE_DJANGO = ""
+            DATABASE_AUTH = ""
+            POSTGRESQL_CONNECTION_STRING = f""
+
+        GRAFANA_API_KEY = ""
+
+        class MongoDB:
+            DATABASE_DJANGO = ""
+            USERNAME = ""
+            PASSWORD = ""
+            HOST = ""
+            PORT = 27017
+            AUTHSOURCE = ""
+
+            MONGODB_CONNECTION_STRING = ""
+            MONGO_URI_DJANGO = ""
+
+            class Cloud:
+                """
+                    here are credentials for mongo in cloud
+                """
+                USERNAME = ""
+                PASSWORD = ""
+                CLUSTER = ""
+                DATABASE = ""
+                HOST = f""
+                PORT = 27016
+                CONNECTION_STRING = f""
+
 
         # https://pythonhosted.org/Flask-MongoAlchemy/#api
         # this is for mongo alchemy (stupid module)
-        MONGODB_DATABASE_FLASK = "database_flask"
-        MONGODB_DATABASE_DJANGO = "database_django"
+        MONGODB_DATABASE_FLASK = ""
+        MONGODB_DATABASE_DJANGO = ""
 
-        MONGODB_CONNECTION_STRING = "mongodb://username:password@localhost:27017"
+        MONGODB_CONNECTION_STRING = ""
 
         # this for flask-pymongo
-        MONGO_URI_FLASK = "mongodb://username:password@localhost:27017/database_flask?authSource=admin"
-        MONGO_URI_DJANGO = "mongodb://username:password@localhost:27017/database_django?authSource=admin"
+        MONGO_URI_FLASK = ""
+        MONGO_URI_DJANGO = ""
 
         ALLOWED_HOSTS = [
-            "127.0.0.1",
-            "localhost",
             "*"
         ]
+
+        class Sentry:
+            # data source
+            DSN = ""
+
 
     class Staging(Development):
         pass
