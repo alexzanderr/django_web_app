@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> code blocks </title>
+  <style>
+    .content-body>pre code .token.cdata,
+    .content-body>pre code .token.comment,
+    .content-body>pre code .token.doctype,
+    .content-body>pre code .token.prolog,
+    .kg-code-card>code[class*=language-] code .token.cdata,
+    .kg-code-card>code[class*=language-] code .token.comment,
+    .kg-code-card>code[class*=language-] code .token.doctype,
+    .kg-code-card>code[class*=language-] code .token.prolog,
+    .kg-code-card>pre code .token.cdata,
+    .kg-code-card>pre code .token.comment,
+    .kg-code-card>pre code .token.doctype,
+    .kg-code-card>pre code .token.prolog {
+      color: #99a3b6
+    }
+
+
+
+
+    .content-body>pre code .token.attr-name,
+    .content-body>pre code .token.char,
+    .content-body>pre code .token.inserted,
+    .content-body>pre code .token.selector,
+    .content-body>pre code .token.string,
+    .kg-code-card>code[class*=language-] code .token.attr-name,
+    .kg-code-card>code[class*=language-] code .token.char,
+    .kg-code-card>code[class*=language-] code .token.inserted,
+    .kg-code-card>code[class*=language-] code .token.selector,
+    .kg-code-card>code[class*=language-] code .token.string,
+    .kg-code-card>pre code .token.attr-name,
+    .kg-code-card>pre code .token.char,
+    .kg-code-card>pre code .token.inserted,
+    .kg-code-card>pre code .token.selector,
+    .kg-code-card>pre code .token.string {
+      color: #bdd0ad
+    }
+
+
+    .content-body>pre code .token.punctuation,
+    .kg-code-card>code[class*=language-] code .token.punctuation,
+    .kg-code-card>pre code .token.punctuation {
+      color: #81a1c1
+    }
+
+    .content-body>pre code .token.builtin,
+    .kg-code-card>code[class*=language-] code .token.builtin,
+    .kg-code-card>pre code .token.builtin {
+      color: #ebcb8b
+    }
+
+    .content-body>pre code .token.triple-quoted-string,
+    .kg-code-card>code[class*=language-] code .token.triple-quoted-string,
+    .kg-code-card>pre code .token.triple-quoted-string {
+      color: #99a3b6
+    }
+
+
+
+    .content-body>pre code .language-css .token.string,
+    .content-body>pre code .style .token.string,
+    .content-body>pre code .token.entity,
+    .content-body>pre code .token.operator,
+    .content-body>pre code .token.url,
+    .kg-code-card>code[class*=language-] code .language-css .token.string,
+    .kg-code-card>code[class*=language-] code .style .token.string,
+    .kg-code-card>code[class*=language-] code .token.entity,
+    .kg-code-card>code[class*=language-] code .token.operator,
+    .kg-code-card>code[class*=language-] code .token.url,
+    .kg-code-card>pre code .language-css .token.string,
+    .kg-code-card>pre code .style .token.string,
+    .kg-code-card>pre code .token.entity,
+    .kg-code-card>pre code .token.operator,
+    .kg-code-card>pre code .token.url {
+      background: none;
+      color: #81a1c1
+    }
+
+    .content-body>pre code .token.atrule,
+    .content-body>pre code .token.attr-value,
+    .content-body>pre code .token.keyword,
+    .kg-code-card>code[class*=language-] code .token.atrule,
+    .kg-code-card>code[class*=language-] code .token.attr-value,
+    .kg-code-card>code[class*=language-] code .token.keyword,
+    .kg-code-card>pre code .token.atrule,
+    .kg-code-card>pre code .token.attr-value,
+    .kg-code-card>pre code .token.keyword {
+      color: #81a1c1;
+      font-weight: 700
+    }
+
+
+
+    .content-body>pre code .token.function,
+    .kg-code-card>code[class*=language-] code .token.function,
+    .kg-code-card>pre code .token.function {
+      color: #8fbcbb;
+      font-weight: 700
+    }
+
+    .content-body>pre code .token.important,
+    .content-body>pre code .token.regex,
+    .content-body>pre code .token.variable,
+    .kg-code-card>code[class*=language-] code .token.important,
+    .kg-code-card>code[class*=language-] code .token.regex,
+    .kg-code-card>code[class*=language-] code .token.variable,
+    .kg-code-card>pre code .token.important,
+    .kg-code-card>pre code .token.regex,
+    .kg-code-card>pre code .token.variable {
+      color: #ebcb8b
+    }
+
+    .content-body>pre code .token.bold,
+    .content-body>pre code .token.important,
+    .kg-code-card>code[class*=language-] code .token.bold,
+    .kg-code-card>code[class*=language-] code .token.important,
+    .kg-code-card>pre code .token.bold,
+    .kg-code-card>pre code .token.important {
+      font-weight: 700
+    }
+
+    .content-body>pre code .token.italic,
+    .kg-code-card>code[class*=language-] code .token.italic,
+    .kg-code-card>pre code .token.italic {
+      font-style: italic
+    }
+
+    .content-body>pre code .token.entity,
+    .kg-code-card>code[class*=language-] code .token.entity,
+    .kg-code-card>pre code .token.entity {
+      cursor: help
+    }
+
+    .content-body>pre code .token.decorator,
+    .kg-code-card>code[class*=language-] code .token.decorator,
+    .kg-code-card>pre code .token.decorator {
+      font-weight: 700
+    }
+
+    .content-body>pre.language-html .token.variable,
+    .content-body>pre.language-jinja2 .token.variable,
+    .kg-code-card>code[class*=language-].language-html .token.variable,
+    .kg-code-card>code[class*=language-].language-jinja2 .token.variable,
+    .kg-code-card>pre.language-html .token.variable,
+    .kg-code-card>pre.language-jinja2 .token.variable {
+      color: #eceff4
+    }
+
+    .content-body>pre.language-html .token.attr-name,
+    .content-body>pre.language-jinja2 .token.attr-name,
+    .kg-code-card>code[class*=language-].language-html .token.attr-name,
+    .kg-code-card>code[class*=language-].language-jinja2 .token.attr-name,
+    .kg-code-card>pre.language-html .token.attr-name,
+    .kg-code-card>pre.language-jinja2 .token.attr-name {
+      color: #ebcb8b
+    }
+
+
+    pre[data-line] {
+      position: relative
+    }
+
+    pre[class*=language-]>code[class*=language-] {
+      position: relative;
+      z-index: 1
+    }
+
+    pre[class*=language-shell]>code[class*=language-shell] {
+      white-space: pre !important
+    }
+
+    code[class*=language-ini] .token.selector {
+      color: #8fbcbb !important;
+      font-weight: 700 !important
+    }
+
+    code[class*=language-ini] .token.attr-value {
+      color: #d7e6f4 !important;
+      font-weight: unset !important
+    }
+
+    .content-body>pre.language-html .token.attr-value,
+    .content-body>pre.language-jinja2 .token.attr-value,
+    .kg-code-card>code[class*=language-].language-html .token.attr-value,
+    .kg-code-card>code[class*=language-].language-jinja2 .token.attr-value,
+    .kg-code-card>pre.language-html .token.attr-value,
+    .kg-code-card>pre.language-jinja2 .token.attr-value {
+      color: #bdd0ad;
+      font-weight: 400
+    }
+
+    .content-body>pre.language-html .token.doctype .name,
+    .content-body>pre.language-jinja2 .token.doctype .name,
+    .kg-code-card>code[class*=language-].language-html .token.doctype .name,
+    .kg-code-card>code[class*=language-].language-jinja2 .token.doctype .name,
+    .kg-code-card>pre.language-html .token.doctype .name,
+    .kg-code-card>pre.language-jinja2 .token.doctype .name {
+      color: #e5e9f0
+    }
+
+    .content-body>pre.language-json .token.property,
+    .kg-code-card>code[class*=language-].language-json .token.property,
+    .kg-code-card>pre.language-json .token.property {
+      color: #a3be8c
+    }
+
+
+    .content-body>pre code .token.boolean,
+    .content-body>pre code .token.constant,
+    .content-body>pre code .token.deleted,
+    .content-body>pre code .token.number,
+    .content-body>pre code .token.property,
+    .content-body>pre code .token.symbol,
+    .content-body>pre code .token.tag,
+    .kg-code-card>code[class*=language-] code .token.boolean,
+    .kg-code-card>code[class*=language-] code .token.constant,
+    .kg-code-card>code[class*=language-] code .token.deleted,
+    .kg-code-card>code[class*=language-] code .token.number,
+    .kg-code-card>code[class*=language-] code .token.property,
+    .kg-code-card>code[class*=language-] code .token.symbol,
+    .kg-code-card>code[class*=language-] code .token.tag,
+    .kg-code-card>pre code .token.boolean,
+    .kg-code-card>pre code .token.constant,
+    .kg-code-card>pre code .token.deleted,
+    .kg-code-card>pre code .token.number,
+    .kg-code-card>pre code .token.property,
+    .kg-code-card>pre code .token.symbol,
+    .kg-code-card>pre code .token.tag {
+      color: #b48ead;
+      font-weight: 700
+    }
+
+    .kg-code-card {
+      border-radius: 5px 5px 0 0;
+      display: flex;
+      flex-direction: column;
+      margin: 30px 0;
+      position: relative;
+      width: 100%
+    }
+
+
+    @media (max-width:600px) {
+      .kg-code-card {
+        border: unset;
+        border-radius: 0;
+        width: unset
+      }
+    }
+
+
+    @media (max-width:600px) {
+      .kg-code-card figcaption {
+        border-left: 0;
+        border-radius: 0;
+        border-right: 0;
+        border-top: 1px solid #dde1e9;
+        line-height: 1;
+        margin-left: calc(-50vw + 50%) !important;
+        margin-right: calc(-50vw + 50%) !important;
+        min-width: 100%;
+        padding: 15px;
+        text-overflow: ellipsis;
+        white-space: nowrap
+      }
+    }
+
+    .kg-code-card pre {
+      border-radius: 0 0 4px 4px !important;
+      margin: 0;
+      order: 2
+    }
+
+
+    .content-body>pre,
+    .kg-code-card>code[class*=language-],
+    .kg-code-card>pre {
+      background: #2e3440;
+      color: #eceff4;
+      direction: ltr;
+      font-family: dm, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace !important;
+      font-size: .85em !important;
+      -webkit-hyphens: none;
+      -moz-hyphens: none;
+      -ms-hyphens: none;
+      hyphens: none;
+      line-height: 1.5;
+      overflow-x: scroll;
+      padding: 15px 20px 20px;
+      -moz-tab-size: 4;
+      -o-tab-size: 4;
+      tab-size: 4;
+      text-align: left;
+      text-shadow: none;
+      white-space: pre;
+      word-break: normal;
+      word-spacing: normal
+    }
+
+    @media (max-width:600px) {
+
+      .content-body>pre,
+      .kg-code-card>code[class*=language-],
+      .kg-code-card>pre {
+        -webkit-overflow-scrolling: touch;
+        border-left: 0;
+        border-radius: 0 !important;
+        border-right: 0;
+        font-size: .8em !important;
+        margin-left: calc(-50vw + 50%) !important;
+        margin-right: calc(-50vw + 50%) !important;
+        min-width: 100%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        padding: 15px 15px 20px;
+        white-space: nowrap;
+        white-space: pre-wrap
+      }
+
+      .content-body>pre:hover,
+      .kg-code-card>code[class*=language-]:hover,
+      .kg-code-card>pre:hover {
+        cursor: -webkit-grab;
+        cursor: grab
+      }
+
+      .content-body>pre::-webkit-scrollbar,
+      .kg-code-card>code[class*=language-]::-webkit-scrollbar,
+      .kg-code-card>pre::-webkit-scrollbar {
+        background: transparent;
+        height: 0;
+        width: 0
+      }
+    }
+
+    .content-body>pre::-moz-selection,
+    .kg-code-card>code[class*=language-]::-moz-selection,
+    .kg-code-card>pre::-moz-selection {
+      background: none;
+      text-shadow: none
+    }
+
+    .content-body>pre::mozselection,
+    .content-body>pre::selection,
+    .kg-code-card>code[class*=language-]::mozselection,
+    .kg-code-card>code[class*=language-]::selection,
+    .kg-code-card>pre::mozselection,
+    .kg-code-card>pre::selection {
+      background: none;
+      text-shadow: none
+    }
+
+    .content-body>pre::-webkit-scrollbar,
+    .kg-code-card>code[class*=language-]::-webkit-scrollbar,
+    .kg-code-card>pre::-webkit-scrollbar {
+      display: none
+    }
+
+    .content-body>pre code,
+    .kg-code-card>code[class*=language-] code,
+    .kg-code-card>pre code {
+      white-space: pre-wrap !important
+    }
+
+    .kg-card {
+      margin: 30px 0;
+      transition: all .2s ease-out
+    }
+
+    @media (max-width:600px) {
+      .kg-card {
+        margin: 30px auto
+      }
+    }
+
+
+    @media (max-width:600px) {
+
+      .content-body>pre code,
+      .kg-code-card>code[class*=language-] code,
+      .kg-code-card>pre code {
+        border-radius: 0;
+        display: inline;
+        white-space: pre !important
+      }
+    }
+
+
+
+    @media (max-width:600px) {
+      .kg-code-card pre {
+        border-radius: 0
+      }
+    }
+
+    .kg-code-card figcaption {
+      background: #20242c;
+      border-radius: 4px 4px 0 0;
+      color: #d2d7e1;
+      font-family: CamphorPro-Medium, HelveticaNeue, sans-serif;
+      font-size: .95em;
+      line-height: 1;
+      margin: 0 auto;
+      order: 1;
+      padding: 14px 15px 10px;
+      text-align: left;
+      white-space: normal;
+      width: -webkit-fill-available;
+      width: stretch;
+      width: -moz-available
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <figure class="kg-card kg-code-card">
+      <figcaption>here is some code</figcaption>
+      <pre class="language-python" tabindex="0"><code class="language-python"><span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask
+app <span class="token operator">=</span> Flask<span class="token punctuation">(</span>__name__<span class="token punctuation">)</span>
+
+<span class="token decorator annotation punctuation">@app<span class="token punctuation">.</span>route</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">home</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token string">"Hello World!"</span></code></pre>
+    </figure>
+  </div>
+  <div>
+
+
+
+
+    <figure class="kd-card kd-code-card">
+      <figcaption> here some another code</figcaption>
+      <pre class="language-python" tabindex="0"><code class="language-python"><span class="token keyword">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">home</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;Hello World!&quot;</span>
+</code>
+</pre>
+    </figure>
+  </div>
+</body>
+
+</html>

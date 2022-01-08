@@ -16,9 +16,18 @@ from utilities import _get_conf
 Configuration = _get_conf()
 
 
+
+
 from pathlib import Path
 import json
 import os
+
+
+# 3rd
+from dotenv import load_dotenv; load_dotenv()
+
+print(os.getenv("SPACES"))
+
 
 ProjectStateFile = Path("ProjectState.json")
 __state = json.loads(ProjectStateFile.read_text())["state"].split(",")[0].strip().lower()
@@ -37,7 +46,7 @@ Project = Project__(__state)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
-# ~/Alexzander__/programming/projects/django_web_app/application/
+# ~/Alexzander__/programming/projects/django_web_app/django_web_app/application/
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production

@@ -76,10 +76,62 @@ def api_todos(request: HttpRequest):
     }
 
 
+from django.shortcuts import get_object_or_404
+from rest_framework import viewsets
+from rest_framework.response import Response
+
+class AuthTokenViewSet(viewsets.ModelViewSet):
+    permission_classes = []
+    queryset = AuthToken.tokens.all()
+    serializer_class = AuthTokenJSONSerializer
+
+    # this are standard functions for ModelViewSet
+    # def list(self, request):
+    #     pass
+
+    # def create(self, request):
+    #     pass
+
+    # def retrieve(self, request, pk=None):
+    #     pass
+
+    # def update(self, request, pk=None):
+    #     pass
+
+    # def partial_update(self, request, pk=None):
+    #     pass
+
+    # def destroy(self, request, pk=None):
+    #     pass
+
+    # you dont even need to define this
+    # because its handled automatically
+    # you define this if you want custom output
+    @json_api_response_decorator
+    def list(self, request: HttpRequest):
+        tokens = AuthToken.tokens.all()
+        return {
+            "status": 200,
+            "tokens": AuthTokenJSONSerializer(tokens, many=True).data
+        }
+
+    # @json_api_response_decorator
+    def retrieve(self, request, pk=None):
+        _all = AuthToken.tokens.all()
+        token = get_object_or_404(_all, pk=pk)
+        return Response({
+            "status": 200,
+            "token": AuthTokenJSONSerializer(token).data
+        })
+
+
 # GET /api/postgres/tokens
+# TODO make the decorator for the entire class, is it possible?
 class PostgresTokensView(APIView):
     permission_classes = _allow_any
 
+    # GET /api/postgres/tokens
+    @json_api_response_decorator
     def get(self,
             request: HttpRequest,
             primary_key: int = None
@@ -88,21 +140,21 @@ class PostgresTokensView(APIView):
             token = AuthToken.tokens.get_or_none(pk=primary_key)
             if token:
                 _token = AuthTokenJSONSerializer(token).data
-                return json_api_response({
+                return {
                     "status": 200,
                     "token": _token
-                })
+                }
 
-            return json_api_response({
+            return {
                 "status": 404,
                 "message": f"token with id: '{primary_key}' not found"
-            }, status=404)
+            },
 
         tokens = AuthToken.tokens.all()
-        return json_api_response({
+        return {
             "status": 200,
             "tokens": AuthTokenJSONSerializer(tokens, many=True).data
-        })
+        }
 
 
 class TokenUtilities:

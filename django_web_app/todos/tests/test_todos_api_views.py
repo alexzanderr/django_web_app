@@ -9,6 +9,7 @@
 from django.test.client import Client as DjangoClient
 import json
 
+
 def test_todos_api_index_view(client: DjangoClient):
     response = client.get("/todos/api/")
     # print(response)
@@ -21,7 +22,8 @@ def test_todos_api_index_view(client: DjangoClient):
 
 
 
-def test_todos_api_register_validation_view_class(client: DjangoClient):
+def test_todos_api_register_validation_view_class(
+    client: DjangoClient):
     # not valid because is in the database
     username = "miguel5000"
     # valid

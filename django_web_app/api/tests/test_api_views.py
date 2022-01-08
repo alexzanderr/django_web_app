@@ -5,22 +5,24 @@ import json
 import logging
 from django.test.client import Client as DjangoClient
 
+
 def test_api_index_view(client: DjangoClient):
-	# this must be nammed 'client' otherwise its not going to work
-	resp = client.get("/api/")
-	assert resp.json() == {"message": "rest api its working"}
-	print("REST API its working")
+    # this must be nammed 'client' otherwise its not going to work
+    resp = client.get("/api/")
+    assert resp.json() == {"message": "rest api its working"}
+    print("REST API its working")
 
 
 # cant use this in CI
 # cuz we are using a db transaction with my mongo client
-# def test_api_todos_view(client: DjangoClient, caplog):
-# 	resp = client.get("/api/todos")
-# 	caplog.set_level(logging.INFO)
+def test_api_todos_view(client: DjangoClient, caplog):
+    resp = client.get("/api/todos")
+    caplog.set_level(logging.INFO)
 
-# 	_json = resp.json()
-# 	assert isinstance(_json, dict)
-# 	print("/api/todos its working")
+    _json = resp.json()
+    assert isinstance(_json, dict)
+    print("/api/todos its working")
+
 
 """
 -------------------------------- Captured stdout setup --------------------------------
@@ -51,9 +53,9 @@ Destroying old test database for alias 'django_web_app_auth_db' ('test_django_we
 # this tells pytest to make db transactions (read, write) while testing
 # @pytest.mark.django_db
 # class TestRESTAPI:
-# 	def test_api_todos_mongo_models_register_token(self, client: DjangoClient):
-# 		resp = client.get("/api/todos/mongo/models/register_tokens")
+#   def test_api_todos_mongo_models_register_token(self, client: DjangoClient):
+#     resp = client.get("/api/todos/mongo/models/register_tokens")
 
-# 		_json = resp.json()
-# 		assert isinstance(_json, dict)
-# 		assert _json["code"] == 200
+#     _json = resp.json()
+#     assert isinstance(_json, dict)
+#     assert _json["code"] == 200

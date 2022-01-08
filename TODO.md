@@ -41,8 +41,8 @@
 - [ ] create a github workflow just only for main branch (to run pytest with python 3.6)
 - [ ] add classes to pytest files
 - [ ] add this (https://plugins.jenkins.io/ansicolor/) to jenkins
-- [ ]
-- [ ]
+- [ ] add a front-end JS framework
+- [ ] add a code2html converter at rest api
 - [ ]
 - [ ]
 - [ ]
@@ -125,9 +125,8 @@ To fix this make sure to import all your view modules, database models, and ever
 - [ ] add captcha validation to your form
 - [ ] add security check access tokens in code
 - [ ] add security check for vulnerabilities in code
-- [ ] ModuleNotFoundError: No module named 'app' when testing on github workflows, maybe because in stupid ubuntu you cant use from `module_name`.something import `else`, tin minte asta din experienta mea cu aplicatiile mele, cand ai import from root package pur si simplu nu merge
+- [ ] ModuleNotFoundError: No module named 'app' when testing on github workflows, maybe because in stupid ubuntu you cant use from `module_name.something import else`, tin minte asta din experienta mea cu aplicatiile mele, cand ai import from root package pur si simplu nu merge
 - [ ] add slack notification or something else notification when a pull request is triggered
-- [ ] change directories structure (move everything from /src to root)
 - [ ] try this https://dbdiagram.io/d
 - [ ] https://stackoverflow.com/questions/49519208/executing-pipfile-scripts
 - [ ]

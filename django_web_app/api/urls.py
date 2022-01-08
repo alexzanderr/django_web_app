@@ -2,15 +2,29 @@
 from django.contrib import admin
 from django.urls import path, include
 
+from rest_framework.routers import DefaultRouter
 from . import views
+
+rest_api_router = DefaultRouter()
+# GET /api/postgres/tokens/
+# GET /api/postgres/tokens/1/
+# GET /api/postgres/tokens/2/
+# GET /api/postgres/tokens/.../
+rest_api_router.register(r"tokens", views.AuthTokenViewSet, basename="token")
+
 
 urlpatterns = [
 	# /api/
     path("", views.api_index, name="api_index"),
-    # /api/tokens
-    path("postgres/tokens/", views.PostgresTokensView.as_view(), name="postgres_tokens_view"),
-    # /api/tokens/3
-    path("postgres/tokens/<int:primary_key>", views.PostgresTokensView.as_view(), name="postgres_tokens_view_id"),
+    # /api/postgres/tokens
+    # path("postgres/tokens/", views.PostgresTokensView.as_view(), name="postgres_tokens_view"),
+    # /api/postgres/tokens/3
+    # path("postgres/tokens/<int:primary_key>", views.PostgresTokensView.as_view(), name="postgres_tokens_view_id"),
+
+    # /api/postgres/
+    # /api/postgres/ + tokens/
+    # /api/postgres/ + tokens/$pk
+    path("postgres/", include(rest_api_router.urls)),
 
     # GET /api/postgres/tokens/new
     # GET /api/postgres/tokens/new?value=asdo123jfbiasdgbiyug23478
