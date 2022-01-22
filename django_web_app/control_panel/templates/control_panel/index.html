@@ -1,0 +1,26 @@
+{% extends 'base_index.html' %}
+
+{% block wrapped %}
+  <div>
+    <script>
+      function focus_workspace_5() {
+        csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+        $.ajax({
+            type: "GET",
+            headers: { 'X-CSRFToken': csrftoken },
+            url: "/control_panel/api/workspaces/5",
+            success: function (json_response) {
+                console.log(json_response)
+            },
+            error: function () {
+                alert('some error occured. cant update UI')
+            }
+        })
+      }
+    </script>
+    <button onclick="focus_workspace_5()">
+      switch to workspace 5
+    </button>
+  </div>
+
+{% endblock %}

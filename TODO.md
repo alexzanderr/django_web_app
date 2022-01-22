@@ -43,7 +43,7 @@
 - [ ] add this (https://plugins.jenkins.io/ansicolor/) to jenkins
 - [ ] add a front-end JS framework
 - [ ] add a code2html converter at rest api
-- [ ]
+- [ ] https://github.com/jazzband/django-silk
 - [ ]
 - [ ]
 - [ ]
@@ -133,4 +133,5 @@ To fix this make sure to import all your view modules, database models, and ever
 - [ ]
 - [ ]
 - [ ]
-- [ ]
+- [ ]https://github.com/saleor/saleor
+- [ ] https://swagger.io/tools/swagger-ui/
