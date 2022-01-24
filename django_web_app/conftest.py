@@ -5,6 +5,7 @@ import pytest
 import time
 from rich.console import Console
 
+
 # to run this once per tests
 # @pytest.fixture(scope="module")
 @pytest.fixture(scope="session")

@@ -1,5 +1,7 @@
 #!/usr/bin/sh
 
+# THIS IS DEPRECATED NOW
+
 source .venv/bin/activate
 
 # update all deps every time you run

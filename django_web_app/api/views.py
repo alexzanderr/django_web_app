@@ -209,6 +209,7 @@ class TokenUtilities:
 class PostgresNewTokenView(APIView, TokenUtilities):
     permission_classes = _allow_any
 
+    @json_api_response_decorator
     def get(self, request: HttpRequest):
         new_token = request.GET.get("value")
         # return APIResponse({"value": new_token})
@@ -216,14 +217,11 @@ class PostgresNewTokenView(APIView, TokenUtilities):
             database_token = AuthToken.tokens.filter(token=new_token)
 
             if database_token:
-                return json_api_response(
-                    self.token_error_message(database_token[0]),
-                    403)
+                return self.token_error_message(database_token[0]), 403
 
             new_token = AuthToken.tokens.create(token=new_token)
 
-            return json_api_response(
-                self.token_success_message(new_token))
+            return self.token_success_message(new_token)
 
         random_new_token = generate_random_token()
         database_token = AuthToken.tokens.filter(token=random_new_token)  # type: ignore
@@ -233,8 +231,7 @@ class PostgresNewTokenView(APIView, TokenUtilities):
 
         new_token = AuthToken.tokens.create(token=random_new_token)
 
-        return json_api_response(
-            self.token_success_message(new_token))
+        return self.token_success_message(new_token)
 
 
 
@@ -251,6 +248,7 @@ class APILoginView(APIView, TokenUtilities):
         return request.is_ajax()
 
 
+    @json_api_response_decorator
     def get(self, request: HttpRequest):
         _ajax_request = True if request.is_ajax() else False
         _request_origin = "request made from AJAX" if _ajax_request else "requrest made from browser"
@@ -260,40 +258,40 @@ class APILoginView(APIView, TokenUtilities):
             try:
                 url_token = json_body["url_token"]
             except (KeyError, Exception) as error:
-                return json_api_response({
+                return {
                     "status": "error",
                     "message": "looks like you need to provide the token in AJAX body",
                     "error": str(error)
-                })
+                }
             else:
                 return url_token
 
         url_token = request.GET.get("token")
         if not url_token:
-            return json_api_response({
+            return {
                 "status": "error",
                 "message": "forbidden, you must provide ?token",
                 "extra": _request_origin,
                 "code": 403
-            }, 403)
+            }, 403
 
 
 
         database_token = AuthToken.tokens.filter(token=url_token)
         if not database_token:
-            return json_api_response({
+            return {
                 "status": "error",
                 "message": f"invalid token: {url_token}",
                 "extra": _request_origin,
                 "code": 403
-            }, 403)
+            }, 403
 
-        return json_api_response({
+        return {
             "status": "success",
             "message": f"you are now logged in with token: {url_token}",
             "extra": _request_origin,
             "code": 200
-        }, 200)
+        }, 200
 
 
 # @api_view(_get)
@@ -320,6 +318,7 @@ def has_token_expired(_timestamp: float):
 
 @api_view(_get)
 @permission_classes(_allow_any)
+@json_api_response_decorator
 def api_todos_models_register_tokens_view(request, _id: int=None):
     # _all = RegisterToken.manager.create(token="random", expiration_timestamp=datetime.timestamp(datetime.now()))
 
@@ -329,14 +328,14 @@ def api_todos_models_register_tokens_view(request, _id: int=None):
 
         token = RegisterToken.manager.all()[_id]
         data = RegisterTokenJSONSerializer(token).data
-        return json_api_response({"code": 200, "token": data})
+        return {"code": 200, "token": data}
 
 
     tokens = RegisterToken.manager.all()
     # print(tokens[0].expired)
     _json = RegisterTokenJSONSerializer(tokens, many=True)
     # print(_json)
-    return json_api_response({"code": 200, "tokens": _json.data})
+    return {"code": 200, "tokens": _json.data}
 
     # _token = AuthTokenJSONSerializer(token).data
     # print(token[0].id)

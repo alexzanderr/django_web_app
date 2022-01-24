@@ -1,26 +1,56 @@
-#!/usr/bin/sh
-
-# this file exists because when i want
-# to run commands from tmux session
-# i need the venv to be activated
-source .venv/bin/activate
-pip freeze > requirements.txt
+#!/usr/bin/zsh
 
 
+
+app_folder=$(basename $PWD)
 
 param=$1
+
+function _change_dir_to_app_folder() {
+	if [[ ! -z $APP_FOLDER ]]; then
+	    cd $APP_FOLDER
+	else
+		export APP_FOLDER=$app_folder
+		cd $APP_FOLDER
+		echo $APP_FOLDER
+	fi
+}
+
 if [[ "$param" == "live" ]]; then
-	make live
-elif [[ "$param" == "dev" ]]; then
-	make
+
+	_change_dir_to_app_folder
+	python manage.py livereload
+	
 elif [[ "$param" == "ipy" ]]; then
-	make ipy
-elif [[ "$param" == "run_server" ]]; then
+
+	_change_dir_to_app_folder
+	python manage.py shell_plus
+
+elif [[ "$param" == "dev" ]]; then
+
+	_change_dir_to_app_folder
 	python manage.py runserver 0:5555
-elif [[ "$param" == "server_plus" ]]; then
+
+elif [[ "$param" == "dev+" ]]; then
+
+	_change_dir_to_app_folder
 	python manage.py runserver_plus 0:5555
-elif [[ "$param" == "pip" ]]; then
+
+elif [[ "$param" == "freeze" ]]; then
 	pip freeze > requirements.txt
+
+
+
+elif [[ "$param" == "test" ]]; then
+	_change_dir_to_app_folder
+	w=$2
+	if [[ -z $w ]]; then
+		# durations is to print all durations for every called func
+		pytest -vv -x -rP --color=yes --durations=0
+	else
+		pytest -vv -x -rP -n $w --color=yes --durations=0
+	fi
+
 else
 	echo "you must provide args"
 	echo "like"

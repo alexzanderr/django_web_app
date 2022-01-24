@@ -12,6 +12,6 @@ urlpatterns = [
     # /analytics
     path("", views.index),
     # /analytics/todos
-    path("todos/", views.analytics_todos)
-
+    path("todos/", views.analytics_todos),
+    path("all_routes/", views.analytics_all_routes),
 ]

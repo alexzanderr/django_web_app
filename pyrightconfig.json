@@ -9,6 +9,6 @@
         "**/node_modules",
         "**/__pycache__"
     ],
-    "venvPath": ".",
-    "venv": ".venv"
+    "venvPath": "/home/alexzander/.local/share/virtualenvs",
+    "venv": "django_web_app-xUjGMO2f"
 }

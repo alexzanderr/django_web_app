@@ -1,0 +1,54 @@
+#!/usr/bin/zsh
+
+
+
+one=$1
+
+arguments=("$@")
+len_arguments=${#arguments[@]}
+
+
+function _get_after_install() {
+    # pepe its broken
+    # TODO
+    # switch to python
+    for (( i=2; i<${len_arguments}; i++ )); do
+        printf "${arguments[$i]} "
+    done
+}
+
+if [[ $one == "i" ]] || [[ $one == "install" ]]; then
+    # pipenv install $2
+    # for arg in "${arguments[@]}"; do
+    echo `_get_after_install`
+    # pipenv install `_get_after_install`
+
+elif [[ $one == "di" ]] || [[ $one == "dinstall" ]]; then
+    # pipenv install --dev $2
+    pipenv install --dev `_get_after_install`
+
+elif [[ $one == "s" ]] || [[ $one == "shell" ]]; then
+    # if the current shell is 'sh'
+    # this will launch a bare shell
+    # if the current shell is 'zsh'
+    # will launch a new zsh subshell
+    default_shell=$(env | grep ^SHELL= | cut -f2 -d"=")
+    echo "'$default_shell'"
+    if [[ $default_shell == "/bin/zsh" ]] || [[ $default_shell == "/usr/bin/zsh" ]]; then
+        /usr/bin/zsh -c "pipenv shell $2"
+    fi
+
+    # eval "$default_shell -c 'pipenv shell'"
+
+
+elif [[ $one == "rm" ]] || [[ $one == "uninstall" ]]; then
+    # pipenv install --dev $2
+    pipenv uninstall `_get_after_install`
+
+elif [[ $one == "info" ]]; then
+    # pipenv install --dev $2
+    echo -e "current folder:\n`pipenv --where`"
+    echo -e "venv 4 cwd:\n`pipenv --venv`"
+    echo -e "py interpreter 4 this venv:\n`pipenv --py`"
+fi
+

@@ -6,26 +6,26 @@
 # SPEC_FILE = "$(MAIN_BIN).spec"
 # MAIN_FILE = "main.py"
 
-project="django_web_app"
+APP=django_web_app
 
 dev:
-	./run-server.sh
+	./maker dev
 
 live:
-	python manage.py livereload
+	./maker live
 
 ipy:
-	python manage.py shell_plus --ptpython
+	./maker ipy
 
-run_server:
-	./maker run_server
-
-server_plus:
-	./maker server_plus
+dev+:
+	./maker dev+
 
 test:
-	# durations is to print all durations for every called func
-	pytest -vv -x -rP -n 2 --color=yes --durations=0
+	# you cant cd in makefile
+	# because cd is a shell function
+	# you cant only run commands inside make
+	./maker test
+
 
 lint:
 	pylint --load-plugins pylint_django -j 4 `ls -R|grep .py$|xargs`
